@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, {useState} from 'react';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import logo from '../media/capslogo.png';
 import { Link } from 'react-router-dom';
@@ -7,6 +7,14 @@ import { AmplifySignOut, AmplifyAuthenticator } from '@aws-amplify/ui-react'
 import '../css/Navigation.css';
 
 const Navigation = ({ childProps }) => {
+
+  const [isOpen, setIsOpen] = useState(false);
+  const onToggle = (nextShow, event, metadata) => {
+    const isClosingPermitted = metadata.source !== 'select';
+    const currentNextShow = nextShow ? true : !isClosingPermitted;
+    setIsOpen(currentNextShow);
+};
+
     const handleStateChange = state => {
         console.log(state)
         if (state === 'signedout') {
@@ -33,11 +41,10 @@ const Navigation = ({ childProps }) => {
         <Link className="btn d-flex align-items-center" to="/">Home</Link>
         {childProps.isLoggedIn ? 
         <NavDropdown className="btn d-flex align-items-center" title="Admin Controls" >
-        <Link className="btn d-flex align-items-center" to="/admin/players">Players</Link>
+        <NavDropdown.Item as={Link}className="btn d-flex align-items-center" to="/admin/players">Players</NavDropdown.Item>
           <NavDropdown.Divider />
-          <Link className="btn d-flex align-items-center" to="/admin/game">Games</Link>
+          <NavDropdown.Item as={Link}className="btn d-flex align-items-center" to="/admin/game"> Games</NavDropdown.Item>
           <NavDropdown.Divider />
-          <Link className="btn d-flex align-items-center" to="/admin/record">Record Game Stats</Link> 
           </NavDropdown>:''}
         </Nav>
         <Nav>

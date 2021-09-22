@@ -76,6 +76,47 @@ export type Player = {
   name: string,
   position: string,
   team: number,
+  game?: ModelPlayerGameJoinConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelPlayerGameJoinConnection = {
+  __typename: "ModelPlayerGameJoinConnection",
+  items?:  Array<PlayerGameJoin | null > | null,
+  nextToken?: string | null,
+};
+
+export type PlayerGameJoin = {
+  __typename: "PlayerGameJoin",
+  id: string,
+  playerID: string,
+  gameID: string,
+  game: Game,
+  player: Player,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type Game = {
+  __typename: "Game",
+  id: string,
+  against: string,
+  date: string,
+  team: number,
+  location: string,
+  live: boolean,
+  goals?:  Array<Goal | null > | null,
+  player?: ModelPlayerGameJoinConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type Goal = {
+  __typename: "Goal",
+  id: string,
+  player: Player,
+  game: Game,
   createdAt: string,
   updatedAt: string,
 };
@@ -91,76 +132,58 @@ export type DeletePlayerInput = {
   id: string,
 };
 
-export type CreateGoalInput = {
-  id?: string | null,
-};
-
-export type ModelGoalConditionInput = {
-  and?: Array< ModelGoalConditionInput | null > | null,
-  or?: Array< ModelGoalConditionInput | null > | null,
-  not?: ModelGoalConditionInput | null,
-};
-
-export type Goal = {
-  __typename: "Goal",
-  id: string,
-  player: Player,
-  game: Game,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type Game = {
-  __typename: "Game",
-  id: string,
-  against: string,
-  date: string,
-  goals:  Array<Goal | null >,
-  players:  Array<Player | null >,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateGoalInput = {
-  id: string,
-};
-
-export type DeleteGoalInput = {
-  id: string,
-};
-
 export type CreateGameInput = {
   id?: string | null,
   against: string,
   date: string,
+  team: number,
+  location: string,
+  live: boolean,
 };
 
 export type ModelGameConditionInput = {
   against?: ModelStringInput | null,
   date?: ModelStringInput | null,
+  team?: ModelIntInput | null,
+  location?: ModelStringInput | null,
+  live?: ModelBooleanInput | null,
   and?: Array< ModelGameConditionInput | null > | null,
   or?: Array< ModelGameConditionInput | null > | null,
   not?: ModelGameConditionInput | null,
+};
+
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
 };
 
 export type UpdateGameInput = {
   id: string,
   against?: string | null,
   date?: string | null,
+  team?: number | null,
+  location?: string | null,
+  live?: boolean | null,
 };
 
 export type DeleteGameInput = {
   id: string,
 };
 
-export type ModelPlayerFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  position?: ModelStringInput | null,
-  team?: ModelIntInput | null,
-  and?: Array< ModelPlayerFilterInput | null > | null,
-  or?: Array< ModelPlayerFilterInput | null > | null,
-  not?: ModelPlayerFilterInput | null,
+export type CreatePlayerGameJoinInput = {
+  id?: string | null,
+  playerID: string,
+  gameID: string,
+};
+
+export type ModelPlayerGameJoinConditionInput = {
+  playerID?: ModelIDInput | null,
+  gameID?: ModelIDInput | null,
+  and?: Array< ModelPlayerGameJoinConditionInput | null > | null,
+  or?: Array< ModelPlayerGameJoinConditionInput | null > | null,
+  not?: ModelPlayerGameJoinConditionInput | null,
 };
 
 export type ModelIDInput = {
@@ -179,10 +202,75 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
+export type UpdatePlayerGameJoinInput = {
+  id: string,
+  playerID?: string | null,
+  gameID?: string | null,
+};
+
+export type DeletePlayerGameJoinInput = {
+  id: string,
+};
+
+export type CreateGoalInput = {
+  id?: string | null,
+};
+
+export type ModelGoalConditionInput = {
+  and?: Array< ModelGoalConditionInput | null > | null,
+  or?: Array< ModelGoalConditionInput | null > | null,
+  not?: ModelGoalConditionInput | null,
+};
+
+export type UpdateGoalInput = {
+  id: string,
+};
+
+export type DeleteGoalInput = {
+  id: string,
+};
+
+export type ModelPlayerFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  position?: ModelStringInput | null,
+  team?: ModelIntInput | null,
+  and?: Array< ModelPlayerFilterInput | null > | null,
+  or?: Array< ModelPlayerFilterInput | null > | null,
+  not?: ModelPlayerFilterInput | null,
+};
+
 export type ModelPlayerConnection = {
   __typename: "ModelPlayerConnection",
   items?:  Array<Player | null > | null,
   nextToken?: string | null,
+};
+
+export type ModelGameFilterInput = {
+  id?: ModelIDInput | null,
+  against?: ModelStringInput | null,
+  date?: ModelStringInput | null,
+  team?: ModelIntInput | null,
+  location?: ModelStringInput | null,
+  live?: ModelBooleanInput | null,
+  and?: Array< ModelGameFilterInput | null > | null,
+  or?: Array< ModelGameFilterInput | null > | null,
+  not?: ModelGameFilterInput | null,
+};
+
+export type ModelGameConnection = {
+  __typename: "ModelGameConnection",
+  items?:  Array<Game | null > | null,
+  nextToken?: string | null,
+};
+
+export type ModelPlayerGameJoinFilterInput = {
+  id?: ModelIDInput | null,
+  playerID?: ModelIDInput | null,
+  gameID?: ModelIDInput | null,
+  and?: Array< ModelPlayerGameJoinFilterInput | null > | null,
+  or?: Array< ModelPlayerGameJoinFilterInput | null > | null,
+  not?: ModelPlayerGameJoinFilterInput | null,
 };
 
 export type ModelGoalFilterInput = {
@@ -198,21 +286,6 @@ export type ModelGoalConnection = {
   nextToken?: string | null,
 };
 
-export type ModelGameFilterInput = {
-  id?: ModelIDInput | null,
-  against?: ModelStringInput | null,
-  date?: ModelStringInput | null,
-  and?: Array< ModelGameFilterInput | null > | null,
-  or?: Array< ModelGameFilterInput | null > | null,
-  not?: ModelGameFilterInput | null,
-};
-
-export type ModelGameConnection = {
-  __typename: "ModelGameConnection",
-  items?:  Array<Game | null > | null,
-  nextToken?: string | null,
-};
-
 export type CreatePlayerMutationVariables = {
   input: CreatePlayerInput,
   condition?: ModelPlayerConditionInput | null,
@@ -225,6 +298,18 @@ export type CreatePlayerMutation = {
     name: string,
     position: string,
     team: number,
+    game?:  {
+      __typename: "ModelPlayerGameJoinConnection",
+      items?:  Array< {
+        __typename: "PlayerGameJoin",
+        id: string,
+        playerID: string,
+        gameID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -242,6 +327,18 @@ export type UpdatePlayerMutation = {
     name: string,
     position: string,
     team: number,
+    game?:  {
+      __typename: "ModelPlayerGameJoinConnection",
+      items?:  Array< {
+        __typename: "PlayerGameJoin",
+        id: string,
+        playerID: string,
+        gameID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -259,6 +356,339 @@ export type DeletePlayerMutation = {
     name: string,
     position: string,
     team: number,
+    game?:  {
+      __typename: "ModelPlayerGameJoinConnection",
+      items?:  Array< {
+        __typename: "PlayerGameJoin",
+        id: string,
+        playerID: string,
+        gameID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateGameMutationVariables = {
+  input: CreateGameInput,
+  condition?: ModelGameConditionInput | null,
+};
+
+export type CreateGameMutation = {
+  createGame?:  {
+    __typename: "Game",
+    id: string,
+    against: string,
+    date: string,
+    team: number,
+    location: string,
+    live: boolean,
+    goals?:  Array< {
+      __typename: "Goal",
+      id: string,
+      player:  {
+        __typename: "Player",
+        id: string,
+        name: string,
+        position: string,
+        team: number,
+        createdAt: string,
+        updatedAt: string,
+      },
+      game:  {
+        __typename: "Game",
+        id: string,
+        against: string,
+        date: string,
+        team: number,
+        location: string,
+        live: boolean,
+        createdAt: string,
+        updatedAt: string,
+      },
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    player?:  {
+      __typename: "ModelPlayerGameJoinConnection",
+      items?:  Array< {
+        __typename: "PlayerGameJoin",
+        id: string,
+        playerID: string,
+        gameID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateGameMutationVariables = {
+  input: UpdateGameInput,
+  condition?: ModelGameConditionInput | null,
+};
+
+export type UpdateGameMutation = {
+  updateGame?:  {
+    __typename: "Game",
+    id: string,
+    against: string,
+    date: string,
+    team: number,
+    location: string,
+    live: boolean,
+    goals?:  Array< {
+      __typename: "Goal",
+      id: string,
+      player:  {
+        __typename: "Player",
+        id: string,
+        name: string,
+        position: string,
+        team: number,
+        createdAt: string,
+        updatedAt: string,
+      },
+      game:  {
+        __typename: "Game",
+        id: string,
+        against: string,
+        date: string,
+        team: number,
+        location: string,
+        live: boolean,
+        createdAt: string,
+        updatedAt: string,
+      },
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    player?:  {
+      __typename: "ModelPlayerGameJoinConnection",
+      items?:  Array< {
+        __typename: "PlayerGameJoin",
+        id: string,
+        playerID: string,
+        gameID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteGameMutationVariables = {
+  input: DeleteGameInput,
+  condition?: ModelGameConditionInput | null,
+};
+
+export type DeleteGameMutation = {
+  deleteGame?:  {
+    __typename: "Game",
+    id: string,
+    against: string,
+    date: string,
+    team: number,
+    location: string,
+    live: boolean,
+    goals?:  Array< {
+      __typename: "Goal",
+      id: string,
+      player:  {
+        __typename: "Player",
+        id: string,
+        name: string,
+        position: string,
+        team: number,
+        createdAt: string,
+        updatedAt: string,
+      },
+      game:  {
+        __typename: "Game",
+        id: string,
+        against: string,
+        date: string,
+        team: number,
+        location: string,
+        live: boolean,
+        createdAt: string,
+        updatedAt: string,
+      },
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    player?:  {
+      __typename: "ModelPlayerGameJoinConnection",
+      items?:  Array< {
+        __typename: "PlayerGameJoin",
+        id: string,
+        playerID: string,
+        gameID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreatePlayerGameJoinMutationVariables = {
+  input: CreatePlayerGameJoinInput,
+  condition?: ModelPlayerGameJoinConditionInput | null,
+};
+
+export type CreatePlayerGameJoinMutation = {
+  createPlayerGameJoin?:  {
+    __typename: "PlayerGameJoin",
+    id: string,
+    playerID: string,
+    gameID: string,
+    game:  {
+      __typename: "Game",
+      id: string,
+      against: string,
+      date: string,
+      team: number,
+      location: string,
+      live: boolean,
+      goals?:  Array< {
+        __typename: "Goal",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      player?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    player:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdatePlayerGameJoinMutationVariables = {
+  input: UpdatePlayerGameJoinInput,
+  condition?: ModelPlayerGameJoinConditionInput | null,
+};
+
+export type UpdatePlayerGameJoinMutation = {
+  updatePlayerGameJoin?:  {
+    __typename: "PlayerGameJoin",
+    id: string,
+    playerID: string,
+    gameID: string,
+    game:  {
+      __typename: "Game",
+      id: string,
+      against: string,
+      date: string,
+      team: number,
+      location: string,
+      live: boolean,
+      goals?:  Array< {
+        __typename: "Goal",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      player?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    player:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeletePlayerGameJoinMutationVariables = {
+  input: DeletePlayerGameJoinInput,
+  condition?: ModelPlayerGameJoinConditionInput | null,
+};
+
+export type DeletePlayerGameJoinMutation = {
+  deletePlayerGameJoin?:  {
+    __typename: "PlayerGameJoin",
+    id: string,
+    playerID: string,
+    gameID: string,
+    game:  {
+      __typename: "Game",
+      id: string,
+      against: string,
+      date: string,
+      team: number,
+      location: string,
+      live: boolean,
+      goals?:  Array< {
+        __typename: "Goal",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      player?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    player:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -279,6 +709,10 @@ export type CreateGoalMutation = {
       name: string,
       position: string,
       team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -287,21 +721,19 @@ export type CreateGoalMutation = {
       id: string,
       against: string,
       date: string,
-      goals:  Array< {
+      team: number,
+      location: string,
+      live: boolean,
+      goals?:  Array< {
         __typename: "Goal",
         id: string,
         createdAt: string,
         updatedAt: string,
-      } | null >,
-      players:  Array< {
-        __typename: "Player",
-        id: string,
-        name: string,
-        position: string,
-        team: number,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
+      } | null > | null,
+      player?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -325,6 +757,10 @@ export type UpdateGoalMutation = {
       name: string,
       position: string,
       team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -333,21 +769,19 @@ export type UpdateGoalMutation = {
       id: string,
       against: string,
       date: string,
-      goals:  Array< {
+      team: number,
+      location: string,
+      live: boolean,
+      goals?:  Array< {
         __typename: "Goal",
         id: string,
         createdAt: string,
         updatedAt: string,
-      } | null >,
-      players:  Array< {
-        __typename: "Player",
-        id: string,
-        name: string,
-        position: string,
-        team: number,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
+      } | null > | null,
+      player?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -371,6 +805,10 @@ export type DeleteGoalMutation = {
       name: string,
       position: string,
       team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -379,168 +817,22 @@ export type DeleteGoalMutation = {
       id: string,
       against: string,
       date: string,
-      goals:  Array< {
+      team: number,
+      location: string,
+      live: boolean,
+      goals?:  Array< {
         __typename: "Goal",
         id: string,
         createdAt: string,
         updatedAt: string,
-      } | null >,
-      players:  Array< {
-        __typename: "Player",
-        id: string,
-        name: string,
-        position: string,
-        team: number,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
+      } | null > | null,
+      player?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     },
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateGameMutationVariables = {
-  input: CreateGameInput,
-  condition?: ModelGameConditionInput | null,
-};
-
-export type CreateGameMutation = {
-  createGame?:  {
-    __typename: "Game",
-    id: string,
-    against: string,
-    date: string,
-    goals:  Array< {
-      __typename: "Goal",
-      id: string,
-      player:  {
-        __typename: "Player",
-        id: string,
-        name: string,
-        position: string,
-        team: number,
-        createdAt: string,
-        updatedAt: string,
-      },
-      game:  {
-        __typename: "Game",
-        id: string,
-        against: string,
-        date: string,
-        createdAt: string,
-        updatedAt: string,
-      },
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    players:  Array< {
-      __typename: "Player",
-      id: string,
-      name: string,
-      position: string,
-      team: number,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateGameMutationVariables = {
-  input: UpdateGameInput,
-  condition?: ModelGameConditionInput | null,
-};
-
-export type UpdateGameMutation = {
-  updateGame?:  {
-    __typename: "Game",
-    id: string,
-    against: string,
-    date: string,
-    goals:  Array< {
-      __typename: "Goal",
-      id: string,
-      player:  {
-        __typename: "Player",
-        id: string,
-        name: string,
-        position: string,
-        team: number,
-        createdAt: string,
-        updatedAt: string,
-      },
-      game:  {
-        __typename: "Game",
-        id: string,
-        against: string,
-        date: string,
-        createdAt: string,
-        updatedAt: string,
-      },
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    players:  Array< {
-      __typename: "Player",
-      id: string,
-      name: string,
-      position: string,
-      team: number,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteGameMutationVariables = {
-  input: DeleteGameInput,
-  condition?: ModelGameConditionInput | null,
-};
-
-export type DeleteGameMutation = {
-  deleteGame?:  {
-    __typename: "Game",
-    id: string,
-    against: string,
-    date: string,
-    goals:  Array< {
-      __typename: "Goal",
-      id: string,
-      player:  {
-        __typename: "Player",
-        id: string,
-        name: string,
-        position: string,
-        team: number,
-        createdAt: string,
-        updatedAt: string,
-      },
-      game:  {
-        __typename: "Game",
-        id: string,
-        against: string,
-        date: string,
-        createdAt: string,
-        updatedAt: string,
-      },
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    players:  Array< {
-      __typename: "Player",
-      id: string,
-      name: string,
-      position: string,
-      team: number,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -557,6 +849,18 @@ export type GetPlayerQuery = {
     name: string,
     position: string,
     team: number,
+    game?:  {
+      __typename: "ModelPlayerGameJoinConnection",
+      items?:  Array< {
+        __typename: "PlayerGameJoin",
+        id: string,
+        playerID: string,
+        gameID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -577,6 +881,190 @@ export type ListPlayersQuery = {
       name: string,
       position: string,
       team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetGameQueryVariables = {
+  id: string,
+};
+
+export type GetGameQuery = {
+  getGame?:  {
+    __typename: "Game",
+    id: string,
+    against: string,
+    date: string,
+    team: number,
+    location: string,
+    live: boolean,
+    goals?:  Array< {
+      __typename: "Goal",
+      id: string,
+      player:  {
+        __typename: "Player",
+        id: string,
+        name: string,
+        position: string,
+        team: number,
+        createdAt: string,
+        updatedAt: string,
+      },
+      game:  {
+        __typename: "Game",
+        id: string,
+        against: string,
+        date: string,
+        team: number,
+        location: string,
+        live: boolean,
+        createdAt: string,
+        updatedAt: string,
+      },
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    player?:  {
+      __typename: "ModelPlayerGameJoinConnection",
+      items?:  Array< {
+        __typename: "PlayerGameJoin",
+        id: string,
+        playerID: string,
+        gameID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListGamesQueryVariables = {
+  filter?: ModelGameFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListGamesQuery = {
+  listGames?:  {
+    __typename: "ModelGameConnection",
+    items?:  Array< {
+      __typename: "Game",
+      id: string,
+      against: string,
+      date: string,
+      team: number,
+      location: string,
+      live: boolean,
+      goals?:  Array< {
+        __typename: "Goal",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      player?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetPlayerGameJoinQueryVariables = {
+  id: string,
+};
+
+export type GetPlayerGameJoinQuery = {
+  getPlayerGameJoin?:  {
+    __typename: "PlayerGameJoin",
+    id: string,
+    playerID: string,
+    gameID: string,
+    game:  {
+      __typename: "Game",
+      id: string,
+      against: string,
+      date: string,
+      team: number,
+      location: string,
+      live: boolean,
+      goals?:  Array< {
+        __typename: "Goal",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      player?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    player:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListPlayerGameJoinsQueryVariables = {
+  filter?: ModelPlayerGameJoinFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListPlayerGameJoinsQuery = {
+  listPlayerGameJoins?:  {
+    __typename: "ModelPlayerGameJoinConnection",
+    items?:  Array< {
+      __typename: "PlayerGameJoin",
+      id: string,
+      playerID: string,
+      gameID: string,
+      game:  {
+        __typename: "Game",
+        id: string,
+        against: string,
+        date: string,
+        team: number,
+        location: string,
+        live: boolean,
+        createdAt: string,
+        updatedAt: string,
+      },
+      player:  {
+        __typename: "Player",
+        id: string,
+        name: string,
+        position: string,
+        team: number,
+        createdAt: string,
+        updatedAt: string,
+      },
       createdAt: string,
       updatedAt: string,
     } | null > | null,
@@ -598,6 +1086,10 @@ export type GetGoalQuery = {
       name: string,
       position: string,
       team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -606,21 +1098,19 @@ export type GetGoalQuery = {
       id: string,
       against: string,
       date: string,
-      goals:  Array< {
+      team: number,
+      location: string,
+      live: boolean,
+      goals?:  Array< {
         __typename: "Goal",
         id: string,
         createdAt: string,
         updatedAt: string,
-      } | null >,
-      players:  Array< {
-        __typename: "Player",
-        id: string,
-        name: string,
-        position: string,
-        team: number,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
+      } | null > | null,
+      player?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -655,6 +1145,9 @@ export type ListGoalsQuery = {
         id: string,
         against: string,
         date: string,
+        team: number,
+        location: string,
+        live: boolean,
         createdAt: string,
         updatedAt: string,
       },
@@ -665,17 +1158,88 @@ export type ListGoalsQuery = {
   } | null,
 };
 
-export type GetGameQueryVariables = {
-  id: string,
+export type OnCreatePlayerSubscription = {
+  onCreatePlayer?:  {
+    __typename: "Player",
+    id: string,
+    name: string,
+    position: string,
+    team: number,
+    game?:  {
+      __typename: "ModelPlayerGameJoinConnection",
+      items?:  Array< {
+        __typename: "PlayerGameJoin",
+        id: string,
+        playerID: string,
+        gameID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
 };
 
-export type GetGameQuery = {
-  getGame?:  {
+export type OnUpdatePlayerSubscription = {
+  onUpdatePlayer?:  {
+    __typename: "Player",
+    id: string,
+    name: string,
+    position: string,
+    team: number,
+    game?:  {
+      __typename: "ModelPlayerGameJoinConnection",
+      items?:  Array< {
+        __typename: "PlayerGameJoin",
+        id: string,
+        playerID: string,
+        gameID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeletePlayerSubscription = {
+  onDeletePlayer?:  {
+    __typename: "Player",
+    id: string,
+    name: string,
+    position: string,
+    team: number,
+    game?:  {
+      __typename: "ModelPlayerGameJoinConnection",
+      items?:  Array< {
+        __typename: "PlayerGameJoin",
+        id: string,
+        playerID: string,
+        gameID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateGameSubscription = {
+  onCreateGame?:  {
     __typename: "Game",
     id: string,
     against: string,
     date: string,
-    goals:  Array< {
+    team: number,
+    location: string,
+    live: boolean,
+    goals?:  Array< {
       __typename: "Goal",
       id: string,
       player:  {
@@ -692,47 +1256,45 @@ export type GetGameQuery = {
         id: string,
         against: string,
         date: string,
+        team: number,
+        location: string,
+        live: boolean,
         createdAt: string,
         updatedAt: string,
       },
       createdAt: string,
       updatedAt: string,
-    } | null >,
-    players:  Array< {
-      __typename: "Player",
-      id: string,
-      name: string,
-      position: string,
-      team: number,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
+    } | null > | null,
+    player?:  {
+      __typename: "ModelPlayerGameJoinConnection",
+      items?:  Array< {
+        __typename: "PlayerGameJoin",
+        id: string,
+        playerID: string,
+        gameID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type ListGamesQueryVariables = {
-  filter?: ModelGameFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListGamesQuery = {
-  listGames?:  {
-    __typename: "ModelGameConnection",
-    items?:  Array< {
-      __typename: "Game",
+export type OnUpdateGameSubscription = {
+  onUpdateGame?:  {
+    __typename: "Game",
+    id: string,
+    against: string,
+    date: string,
+    team: number,
+    location: string,
+    live: boolean,
+    goals?:  Array< {
+      __typename: "Goal",
       id: string,
-      against: string,
-      date: string,
-      goals:  Array< {
-        __typename: "Goal",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
-      players:  Array< {
+      player:  {
         __typename: "Player",
         id: string,
         name: string,
@@ -740,45 +1302,220 @@ export type ListGamesQuery = {
         team: number,
         createdAt: string,
         updatedAt: string,
-      } | null >,
+      },
+      game:  {
+        __typename: "Game",
+        id: string,
+        against: string,
+        date: string,
+        team: number,
+        location: string,
+        live: boolean,
+        createdAt: string,
+        updatedAt: string,
+      },
       createdAt: string,
       updatedAt: string,
     } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type OnCreatePlayerSubscription = {
-  onCreatePlayer?:  {
-    __typename: "Player",
-    id: string,
-    name: string,
-    position: string,
-    team: number,
+    player?:  {
+      __typename: "ModelPlayerGameJoinConnection",
+      items?:  Array< {
+        __typename: "PlayerGameJoin",
+        id: string,
+        playerID: string,
+        gameID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnUpdatePlayerSubscription = {
-  onUpdatePlayer?:  {
-    __typename: "Player",
+export type OnDeleteGameSubscription = {
+  onDeleteGame?:  {
+    __typename: "Game",
     id: string,
-    name: string,
-    position: string,
+    against: string,
+    date: string,
     team: number,
+    location: string,
+    live: boolean,
+    goals?:  Array< {
+      __typename: "Goal",
+      id: string,
+      player:  {
+        __typename: "Player",
+        id: string,
+        name: string,
+        position: string,
+        team: number,
+        createdAt: string,
+        updatedAt: string,
+      },
+      game:  {
+        __typename: "Game",
+        id: string,
+        against: string,
+        date: string,
+        team: number,
+        location: string,
+        live: boolean,
+        createdAt: string,
+        updatedAt: string,
+      },
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    player?:  {
+      __typename: "ModelPlayerGameJoinConnection",
+      items?:  Array< {
+        __typename: "PlayerGameJoin",
+        id: string,
+        playerID: string,
+        gameID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnDeletePlayerSubscription = {
-  onDeletePlayer?:  {
-    __typename: "Player",
+export type OnCreatePlayerGameJoinSubscription = {
+  onCreatePlayerGameJoin?:  {
+    __typename: "PlayerGameJoin",
     id: string,
-    name: string,
-    position: string,
-    team: number,
+    playerID: string,
+    gameID: string,
+    game:  {
+      __typename: "Game",
+      id: string,
+      against: string,
+      date: string,
+      team: number,
+      location: string,
+      live: boolean,
+      goals?:  Array< {
+        __typename: "Goal",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      player?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    player:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdatePlayerGameJoinSubscription = {
+  onUpdatePlayerGameJoin?:  {
+    __typename: "PlayerGameJoin",
+    id: string,
+    playerID: string,
+    gameID: string,
+    game:  {
+      __typename: "Game",
+      id: string,
+      against: string,
+      date: string,
+      team: number,
+      location: string,
+      live: boolean,
+      goals?:  Array< {
+        __typename: "Goal",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      player?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    player:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeletePlayerGameJoinSubscription = {
+  onDeletePlayerGameJoin?:  {
+    __typename: "PlayerGameJoin",
+    id: string,
+    playerID: string,
+    gameID: string,
+    game:  {
+      __typename: "Game",
+      id: string,
+      against: string,
+      date: string,
+      team: number,
+      location: string,
+      live: boolean,
+      goals?:  Array< {
+        __typename: "Goal",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      player?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    player:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -794,6 +1531,10 @@ export type OnCreateGoalSubscription = {
       name: string,
       position: string,
       team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -802,21 +1543,19 @@ export type OnCreateGoalSubscription = {
       id: string,
       against: string,
       date: string,
-      goals:  Array< {
+      team: number,
+      location: string,
+      live: boolean,
+      goals?:  Array< {
         __typename: "Goal",
         id: string,
         createdAt: string,
         updatedAt: string,
-      } | null >,
-      players:  Array< {
-        __typename: "Player",
-        id: string,
-        name: string,
-        position: string,
-        team: number,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
+      } | null > | null,
+      player?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -835,6 +1574,10 @@ export type OnUpdateGoalSubscription = {
       name: string,
       position: string,
       team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -843,21 +1586,19 @@ export type OnUpdateGoalSubscription = {
       id: string,
       against: string,
       date: string,
-      goals:  Array< {
+      team: number,
+      location: string,
+      live: boolean,
+      goals?:  Array< {
         __typename: "Goal",
         id: string,
         createdAt: string,
         updatedAt: string,
-      } | null >,
-      players:  Array< {
-        __typename: "Player",
-        id: string,
-        name: string,
-        position: string,
-        team: number,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
+      } | null > | null,
+      player?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -876,6 +1617,10 @@ export type OnDeleteGoalSubscription = {
       name: string,
       position: string,
       team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -884,153 +1629,22 @@ export type OnDeleteGoalSubscription = {
       id: string,
       against: string,
       date: string,
-      goals:  Array< {
+      team: number,
+      location: string,
+      live: boolean,
+      goals?:  Array< {
         __typename: "Goal",
         id: string,
         createdAt: string,
         updatedAt: string,
-      } | null >,
-      players:  Array< {
-        __typename: "Player",
-        id: string,
-        name: string,
-        position: string,
-        team: number,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
+      } | null > | null,
+      player?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     },
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateGameSubscription = {
-  onCreateGame?:  {
-    __typename: "Game",
-    id: string,
-    against: string,
-    date: string,
-    goals:  Array< {
-      __typename: "Goal",
-      id: string,
-      player:  {
-        __typename: "Player",
-        id: string,
-        name: string,
-        position: string,
-        team: number,
-        createdAt: string,
-        updatedAt: string,
-      },
-      game:  {
-        __typename: "Game",
-        id: string,
-        against: string,
-        date: string,
-        createdAt: string,
-        updatedAt: string,
-      },
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    players:  Array< {
-      __typename: "Player",
-      id: string,
-      name: string,
-      position: string,
-      team: number,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateGameSubscription = {
-  onUpdateGame?:  {
-    __typename: "Game",
-    id: string,
-    against: string,
-    date: string,
-    goals:  Array< {
-      __typename: "Goal",
-      id: string,
-      player:  {
-        __typename: "Player",
-        id: string,
-        name: string,
-        position: string,
-        team: number,
-        createdAt: string,
-        updatedAt: string,
-      },
-      game:  {
-        __typename: "Game",
-        id: string,
-        against: string,
-        date: string,
-        createdAt: string,
-        updatedAt: string,
-      },
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    players:  Array< {
-      __typename: "Player",
-      id: string,
-      name: string,
-      position: string,
-      team: number,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteGameSubscription = {
-  onDeleteGame?:  {
-    __typename: "Game",
-    id: string,
-    against: string,
-    date: string,
-    goals:  Array< {
-      __typename: "Goal",
-      id: string,
-      player:  {
-        __typename: "Player",
-        id: string,
-        name: string,
-        position: string,
-        team: number,
-        createdAt: string,
-        updatedAt: string,
-      },
-      game:  {
-        __typename: "Game",
-        id: string,
-        against: string,
-        date: string,
-        createdAt: string,
-        updatedAt: string,
-      },
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    players:  Array< {
-      __typename: "Player",
-      id: string,
-      name: string,
-      position: string,
-      team: number,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
     createdAt: string,
     updatedAt: string,
   } | null,

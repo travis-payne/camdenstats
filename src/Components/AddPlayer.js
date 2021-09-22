@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Row, Col } from 'react-bootstrap';
 import { createPlayer } from '../graphql/mutations';
 import Amplify, { API, graphqlOperation } from 'aws-amplify';
 
@@ -31,14 +31,17 @@ const AddPlayer = (props) => {
       }
 
   return (
-    <div>
-        <h4 className="d-flex justify-content-center" > Add Player </h4>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
+      <Form className="playerForm" onSubmit={handleSubmit}>
+        <Row>
+          <Col>
+          <Form.Group className="mb-3">
           <Form.Label>Player Name:</Form.Label>
           <Form.Control type="name" placeholder="Enter name" onChange={e => setField('name', e.target.value) } />
         </Form.Group>
+        </Col>
 
+
+        <Col>
         <Form.Group className="mb-3">
         <Form.Label>Player Position:</Form.Label>
         <Form.Select aria-label="Position Selection"  onChange={e => setField('position', e.target.value) }>
@@ -51,7 +54,10 @@ const AddPlayer = (props) => {
           <option value="Attack">Attack</option>
         </Form.Select>
         </Form.Group>
+        </Col>
 
+
+        <Col>
         <Form.Group className="mb-3">
         <Form.Label>Player Team:</Form.Label>
         <Form.Select aria-label="Team Selection"  onChange={e => setField('team', e.target.value) }>
@@ -61,12 +67,17 @@ const AddPlayer = (props) => {
           <option value="3">3</option>
         </Form.Select>
         </Form.Group>
+        </Col>
+
+
+        <Col className="d-flex justify-content-center align-items-center">
         <Button variant="primary" type="submit" >
           Submit
         </Button>
+        </Col>
+                </Row>
       </Form>
-    </div>
   )
 }
 
-export default AddPlayer
+export default AddPlayer;

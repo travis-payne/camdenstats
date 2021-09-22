@@ -1,7 +1,7 @@
 import { Container, Row, Col } from 'react-bootstrap'
-import '../css/HomeBody.css'
+import '../css/Home.css'
 
-const HomeBody = () => {
+const Home = () => {
   return (
     <Container className="home">
       <h2 className="d-flex justify-content-center">Leaderboards</h2>
@@ -16,4 +16,4 @@ const HomeBody = () => {
   )
 }
 
-export default HomeBody
+export default Home;

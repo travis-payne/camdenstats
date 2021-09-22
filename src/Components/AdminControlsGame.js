@@ -2,7 +2,9 @@ import { useEffect, useState, forwardRef } from 'react'
 
 import {Container, Row } from 'react-bootstrap'
 
-import AddPlayer from './AddPlayer.js'
+import AddGame from './AddGame.js'
+import GameDetails from './GameDetails.js'
+
 
 import AddBox from '@material-ui/icons/AddBox'
 import ArrowDownward from '@material-ui/icons/ArrowDownward'
@@ -23,40 +25,43 @@ import MaterialTable from 'material-table'
 
 import GraphQlUtils from '../utils/graphqlUtils.js';
 
+import * as mutations from '../graphql/mutations'
+import { API, graphqlOperation } from 'aws-amplify'
+import { listGames } from '../graphql/queries'
+
 import '../css/AdminControlsPlayer.css'
 
-const AdminControlsPlayer = () => {
-  const [players, setPlayers] = useState([])
+const AdminControlsGame = () => {
+  const [games, setGames] = useState([])
 
-  GraphQlUtils.fetchPlayers();
-
-  const fetchPlayers = async () => {
-    setPlayers(await GraphQlUtils.fetchPlayers());
+  const fetchGames = async () => {
+      setGames(await GraphQlUtils.fetchGames());
   }
+  
 
-  const deletePlayer = async (evt, data) => {
+  const deleteGame = async (evt, data) => {
     var deletedIds = [];
-    try {
-      await Promise.all(
-        data.map(async (d) => {
-          await GraphQlUtils.deletePlayer(d.id);
 
-          deletedIds.push( d.id);
-        }),
-      )
-    } catch (err) {
-      console.log(err);
-    }
-    var filtered = players.filter( (player) => !deletedIds.includes(player.id));
-    setPlayers(filtered)
+    data.map(async (game) => {
+       try{
+        await GraphQlUtils.deleteGame(game.id);
+        deletedIds.push(game.id);
+       } catch(err){
+        console.log(err);
+       }
+       var filtered = games.filter( (game) => !deletedIds.includes(game.id));
+       setGames(filtered)
+    })
+    
+
   }
 
   const childProps = {
-    onPlayerAdd: fetchPlayers,
+    onGameAdd: fetchGames,
   }
 
   useEffect(() => {
-    fetchPlayers()
+    fetchGames()
   }, [])
 
   const tableIcons = {
@@ -88,9 +93,10 @@ const AdminControlsPlayer = () => {
   }
 
   return (
+
     <Container fluid>
-        <Row className="playerPanel d-flex justify-content-center">
-          <AddPlayer props={childProps} />
+        <Row className="gamePanel d-flex justify-content-center">
+          <AddGame props={childProps} />
         </Row>
         <hr />
         <Row>
@@ -100,23 +106,44 @@ const AdminControlsPlayer = () => {
               selection: true,
             }}
             columns={[
-              { title: 'Name', field: 'name' },
-              { title: 'Position', field: 'position' },
-              { title: 'Team', field: 'team', type: 'numeric' },
+              { title: 'Team', field: 'team' },
+              { title: 'Against', field: 'against' },
+              { title: 'Date', field: 'date', type: 'date' },
+              { title: 'Location', field: 'location'},
+              { title: 'Live', field: 'live', type: 'boolean' },
             ]}
-            data={players}
-            title="Player Database"
+            data={games}
+            title="Games"
             actions={[
-              (rowData) => ({
-                tooltip: 'Remove All Selected Users',
-                icon: DeleteOutline,
-                onClick: deletePlayer,
-              }),
-            ]}
+                (rowData) => ({
+                  tooltip: 'Remove All Selected Games',
+                  icon: DeleteOutline,
+                  onClick: deleteGame,
+                }),
+              ]}
+              detailPanel= {[
+                {
+                    tooltip: 'Show Name',
+                    render: rowData => {
+                      return (
+                        <div
+                          style={{
+                            fontSize: 100,
+                            textAlign: 'center',
+                            color: 'white',
+                            backgroundColor: '#43A047',
+                          }}
+                        >
+                          <GameDetails props={rowData} />
+                        </div>
+                      )
+                    },
+                  } 
+              ]}
           />
         </Row>
     </Container>
   );
 }
 
-export default AdminControlsPlayer
+export default AdminControlsGame;

@@ -12,6 +12,16 @@ export const createPlayer = /* GraphQL */ `
       name
       position
       team
+      game {
+        items {
+          id
+          playerID
+          gameID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -27,6 +37,16 @@ export const updatePlayer = /* GraphQL */ `
       name
       position
       team
+      game {
+        items {
+          id
+          playerID
+          gameID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -42,6 +62,211 @@ export const deletePlayer = /* GraphQL */ `
       name
       position
       team
+      game {
+        items {
+          id
+          playerID
+          gameID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createGame = /* GraphQL */ `
+  mutation CreateGame(
+    $input: CreateGameInput!
+    $condition: ModelGameConditionInput
+  ) {
+    createGame(input: $input, condition: $condition) {
+      id
+      against
+      date
+      team
+      location
+      live
+      player {
+        items {
+          id
+          playerID
+          gameID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateGame = /* GraphQL */ `
+  mutation UpdateGame(
+    $input: UpdateGameInput!
+    $condition: ModelGameConditionInput
+  ) {
+    updateGame(input: $input, condition: $condition) {
+      id
+      against
+      date
+      team
+      location
+      live
+      player {
+        items {
+          id
+          playerID
+          gameID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteGame = /* GraphQL */ `
+  mutation DeleteGame(
+    $input: DeleteGameInput!
+    $condition: ModelGameConditionInput
+  ) {
+    deleteGame(input: $input, condition: $condition) {
+      id
+      against
+      date
+      team
+      location
+      live
+      player {
+        items {
+          id
+          playerID
+          gameID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createPlayerGameJoin = /* GraphQL */ `
+  mutation CreatePlayerGameJoin(
+    $input: CreatePlayerGameJoinInput!
+    $condition: ModelPlayerGameJoinConditionInput
+  ) {
+    createPlayerGameJoin(input: $input, condition: $condition) {
+      id
+      playerID
+      gameID
+      game {
+        id
+        against
+        date
+        team
+        location
+        live
+        player {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      player {
+        id
+        name
+        position
+        team
+        game {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updatePlayerGameJoin = /* GraphQL */ `
+  mutation UpdatePlayerGameJoin(
+    $input: UpdatePlayerGameJoinInput!
+    $condition: ModelPlayerGameJoinConditionInput
+  ) {
+    updatePlayerGameJoin(input: $input, condition: $condition) {
+      id
+      playerID
+      gameID
+      game {
+        id
+        against
+        date
+        team
+        location
+        live
+        player {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      player {
+        id
+        name
+        position
+        team
+        game {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deletePlayerGameJoin = /* GraphQL */ `
+  mutation DeletePlayerGameJoin(
+    $input: DeletePlayerGameJoinInput!
+    $condition: ModelPlayerGameJoinConditionInput
+  ) {
+    deletePlayerGameJoin(input: $input, condition: $condition) {
+      id
+      playerID
+      gameID
+      game {
+        id
+        against
+        date
+        team
+        location
+        live
+        player {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      player {
+        id
+        name
+        position
+        team
+        game {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -59,6 +284,9 @@ export const createGoal = /* GraphQL */ `
         name
         position
         team
+        game {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -66,18 +294,11 @@ export const createGoal = /* GraphQL */ `
         id
         against
         date
-        goals {
-          id
-          createdAt
-          updatedAt
-        }
-        players {
-          id
-          name
-          position
-          team
-          createdAt
-          updatedAt
+        team
+        location
+        live
+        player {
+          nextToken
         }
         createdAt
         updatedAt
@@ -99,6 +320,9 @@ export const updateGoal = /* GraphQL */ `
         name
         position
         team
+        game {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -106,18 +330,11 @@ export const updateGoal = /* GraphQL */ `
         id
         against
         date
-        goals {
-          id
-          createdAt
-          updatedAt
-        }
-        players {
-          id
-          name
-          position
-          team
-          createdAt
-          updatedAt
+        team
+        location
+        live
+        player {
+          nextToken
         }
         createdAt
         updatedAt
@@ -139,6 +356,9 @@ export const deleteGoal = /* GraphQL */ `
         name
         position
         team
+        game {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -146,145 +366,12 @@ export const deleteGoal = /* GraphQL */ `
         id
         against
         date
-        goals {
-          id
-          createdAt
-          updatedAt
-        }
-        players {
-          id
-          name
-          position
-          team
-          createdAt
-          updatedAt
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createGame = /* GraphQL */ `
-  mutation CreateGame(
-    $input: CreateGameInput!
-    $condition: ModelGameConditionInput
-  ) {
-    createGame(input: $input, condition: $condition) {
-      id
-      against
-      date
-      goals {
-        id
-        player {
-          id
-          name
-          position
-          team
-          createdAt
-          updatedAt
-        }
-        game {
-          id
-          against
-          date
-          createdAt
-          updatedAt
-        }
-        createdAt
-        updatedAt
-      }
-      players {
-        id
-        name
-        position
         team
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateGame = /* GraphQL */ `
-  mutation UpdateGame(
-    $input: UpdateGameInput!
-    $condition: ModelGameConditionInput
-  ) {
-    updateGame(input: $input, condition: $condition) {
-      id
-      against
-      date
-      goals {
-        id
+        location
+        live
         player {
-          id
-          name
-          position
-          team
-          createdAt
-          updatedAt
+          nextToken
         }
-        game {
-          id
-          against
-          date
-          createdAt
-          updatedAt
-        }
-        createdAt
-        updatedAt
-      }
-      players {
-        id
-        name
-        position
-        team
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteGame = /* GraphQL */ `
-  mutation DeleteGame(
-    $input: DeleteGameInput!
-    $condition: ModelGameConditionInput
-  ) {
-    deleteGame(input: $input, condition: $condition) {
-      id
-      against
-      date
-      goals {
-        id
-        player {
-          id
-          name
-          position
-          team
-          createdAt
-          updatedAt
-        }
-        game {
-          id
-          against
-          date
-          createdAt
-          updatedAt
-        }
-        createdAt
-        updatedAt
-      }
-      players {
-        id
-        name
-        position
-        team
         createdAt
         updatedAt
       }

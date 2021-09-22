@@ -9,6 +9,16 @@ export const getPlayer = /* GraphQL */ `
       name
       position
       team
+      game {
+        items {
+          id
+          playerID
+          gameID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -26,6 +36,128 @@ export const listPlayers = /* GraphQL */ `
         name
         position
         team
+        game {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getGame = /* GraphQL */ `
+  query GetGame($id: ID!) {
+    getGame(id: $id) {
+      id
+      against
+      date
+      team
+      location
+      live
+      player {
+        items {
+          id
+          playerID
+          gameID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listGames = /* GraphQL */ `
+  query ListGames(
+    $filter: ModelGameFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listGames(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        against
+        date
+        team
+        location
+        live
+        player {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getPlayerGameJoin = /* GraphQL */ `
+  query GetPlayerGameJoin($id: ID!) {
+    getPlayerGameJoin(id: $id) {
+      id
+      playerID
+      gameID
+      game {
+        id
+        against
+        date
+        team
+        location
+        live
+        player {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      player {
+        id
+        name
+        position
+        team
+        game {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listPlayerGameJoins = /* GraphQL */ `
+  query ListPlayerGameJoins(
+    $filter: ModelPlayerGameJoinFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPlayerGameJoins(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        playerID
+        gameID
+        game {
+          id
+          against
+          date
+          team
+          location
+          live
+          createdAt
+          updatedAt
+        }
+        player {
+          id
+          name
+          position
+          team
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
@@ -42,6 +174,9 @@ export const getGoal = /* GraphQL */ `
         name
         position
         team
+        game {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -49,18 +184,11 @@ export const getGoal = /* GraphQL */ `
         id
         against
         date
-        goals {
-          id
-          createdAt
-          updatedAt
-        }
-        players {
-          id
-          name
-          position
-          team
-          createdAt
-          updatedAt
+        team
+        location
+        live
+        player {
+          nextToken
         }
         createdAt
         updatedAt
@@ -91,76 +219,9 @@ export const listGoals = /* GraphQL */ `
           id
           against
           date
-          createdAt
-          updatedAt
-        }
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getGame = /* GraphQL */ `
-  query GetGame($id: ID!) {
-    getGame(id: $id) {
-      id
-      against
-      date
-      goals {
-        id
-        player {
-          id
-          name
-          position
           team
-          createdAt
-          updatedAt
-        }
-        game {
-          id
-          against
-          date
-          createdAt
-          updatedAt
-        }
-        createdAt
-        updatedAt
-      }
-      players {
-        id
-        name
-        position
-        team
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listGames = /* GraphQL */ `
-  query ListGames(
-    $filter: ModelGameFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listGames(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        against
-        date
-        goals {
-          id
-          createdAt
-          updatedAt
-        }
-        players {
-          id
-          name
-          position
-          team
+          location
+          live
           createdAt
           updatedAt
         }

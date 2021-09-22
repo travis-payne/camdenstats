@@ -1,17 +1,16 @@
 
-import React from 'react';
 import {Switch, Route} from 'react-router-dom';
 import AuthComponent from './AuthComponent.js';
 import ProtectedRoute from './ProtectedRoute.js';
 import ProppedRoute from './ProppedRoute.js';
-import HomeBody from './HomeBody.js';
+import Home from './Home.js';
 import AdminControlsPlayer from './AdminControlsPlayer.js';
-
+import AdminControlsGame from './AdminControlsGame.js';
 
 
 const Routes = ({ childProps }) => (
     <Switch>
-        <Route exact path="/" render={HomeBody} />
+        <Route exact path="/" render={Home} />
         <ProppedRoute 
             exact 
             path="/auth" 
@@ -27,7 +26,7 @@ const Routes = ({ childProps }) => (
         <ProtectedRoute
         exact
         path="/admin/game"
-        render={AdminControlsPlayer}
+        render={AdminControlsGame}
         props={childProps}
         />
         <ProtectedRoute
@@ -36,7 +35,6 @@ const Routes = ({ childProps }) => (
         render={AdminControlsPlayer}
         props={childProps}
         />
-        <Route exact path="/about" render={() => <div>About Content</div>} />
   </Switch>
   );
 
