@@ -1,0 +1,8 @@
+amplify-sign-in
+ {
+    height:none;
+  }
+
+  amplify-authenticator {
+    --container-height: 100%;
+  }

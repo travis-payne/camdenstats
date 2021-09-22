@@ -1,0 +1,21 @@
+type Player @model {
+  id: ID!
+  name: String!
+  position: String!
+  team: Int!
+
+}
+
+type Goal @model {
+  id: ID!
+  player: Player!
+  game: Game!
+}
+
+type Game @model {
+  id: ID!
+  against: String!
+  date: String!
+  goals: [Goal]!
+  players: [Player]!
+}
