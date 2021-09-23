@@ -21,17 +21,14 @@ import ViewColumn from '@material-ui/icons/ViewColumn';
 import GraphQlUtils from '../utils/graphqlUtils.js'
 import { API, graphqlOperation } from 'aws-amplify';
 import * as mutations from '../graphql/mutations';
-import { getGame } from '../graphql/queries';
 
  
-
 
 const blankState = { player: ''};
 
 const GameDetails = (props) => {
   const [playersInGame, setPlayersInGame] = useState([])
   const [players, setPlayers] = useState([])
-
 
   const [form, setForm ] = useState(blankState);
 
@@ -41,7 +38,6 @@ const GameDetails = (props) => {
         [field]: value
       })
     }
-
 
   const { against, date, live, team, id } = props.props;
 
@@ -177,9 +173,6 @@ const GameDetails = (props) => {
                 ]}
               />
             </Row>
-          </Col>
-          <Col>
-            <h2>Players</h2>
           </Col>
         </Row>
       </Container>

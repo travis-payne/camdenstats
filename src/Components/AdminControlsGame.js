@@ -5,7 +5,6 @@ import {Container, Row } from 'react-bootstrap'
 import AddGame from './AddGame.js'
 import GameDetails from './GameDetails.js'
 
-
 import AddBox from '@material-ui/icons/AddBox'
 import ArrowDownward from '@material-ui/icons/ArrowDownward'
 import Check from '@material-ui/icons/Check'
@@ -24,10 +23,6 @@ import ViewColumn from '@material-ui/icons/ViewColumn'
 import MaterialTable from 'material-table'
 
 import GraphQlUtils from '../utils/graphqlUtils.js';
-
-import * as mutations from '../graphql/mutations'
-import { API, graphqlOperation } from 'aws-amplify'
-import { listGames } from '../graphql/queries'
 
 import '../css/AdminControlsPlayer.css'
 

@@ -1,14 +1,15 @@
-import React from 'react';
-import { AmplifySignIn, AmplifyAuthenticator,AmplifySignOut } from '@aws-amplify/ui-react'
+import { AmplifySignIn, AmplifyAuthenticator } from '@aws-amplify/ui-react'
 import '../css/Auth.css';
 
 
 
 
 const AuthComponent = (props) => {
+
   const handleStateChange = state => {
     if (state === 'signedin') {
       props.onUserSignIn();
+      props.history.push('/')
     }
     else {
       props.onUserSignOut();
@@ -25,6 +26,7 @@ const AuthComponent = (props) => {
       headerText="Camden Capybaras Stats"
       ></AmplifySignIn>
     </AmplifyAuthenticator>
+
   );
 
 }

@@ -6,6 +6,7 @@ import ProppedRoute from './ProppedRoute.js';
 import Home from './Home.js';
 import AdminControlsPlayer from './AdminControlsPlayer.js';
 import AdminControlsGame from './AdminControlsGame.js';
+import AdminControlsRecord from './AdminControlsRecord.js';
 
 
 const Routes = ({ childProps }) => (
@@ -32,7 +33,7 @@ const Routes = ({ childProps }) => (
         <ProtectedRoute
         exact
         path="/admin/record"
-        render={AdminControlsPlayer}
+        render={AdminControlsRecord}
         props={childProps}
         />
   </Switch>
