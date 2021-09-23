@@ -2,23 +2,94 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreatePlayerInput = {
-  id?: string | null,
+export type Game = {
+  __typename: "Game",
+  id: string,
+  against: string,
+  date: string,
+  team: number,
+  location: string,
+  live: boolean,
+  player?: ModelPlayerGameJoinConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelPlayerGameJoinConnection = {
+  __typename: "ModelPlayerGameJoinConnection",
+  items?:  Array<PlayerGameJoin | null > | null,
+  nextToken?: string | null,
+};
+
+export type PlayerGameJoin = {
+  __typename: "PlayerGameJoin",
+  id: string,
+  playerID: string,
+  gameID: string,
+  game?: Game | null,
+  player?: Player | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type Player = {
+  __typename: "Player",
+  id: string,
   name: string,
   position: string,
   team: number,
+  game?: ModelPlayerGameJoinConnection | null,
+  goals?: ModelGoalConnection | null,
+  assists?: ModelAssistConnection | null,
+  createdAt: string,
+  updatedAt: string,
 };
 
-export type ModelPlayerConditionInput = {
-  name?: ModelStringInput | null,
-  position?: ModelStringInput | null,
-  team?: ModelIntInput | null,
-  and?: Array< ModelPlayerConditionInput | null > | null,
-  or?: Array< ModelPlayerConditionInput | null > | null,
-  not?: ModelPlayerConditionInput | null,
+export type ModelGoalConnection = {
+  __typename: "ModelGoalConnection",
+  items?:  Array<Goal | null > | null,
+  nextToken?: string | null,
 };
 
-export type ModelStringInput = {
+export type Goal = {
+  __typename: "Goal",
+  id: string,
+  gameID: string,
+  playerID: string,
+  assistID?: string | null,
+  player?: Player | null,
+  assist?: Assist | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type Assist = {
+  __typename: "Assist",
+  id?: string | null,
+  gameID?: string | null,
+  playerID?: string | null,
+  player?: Player | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelAssistConnection = {
+  __typename: "ModelAssistConnection",
+  items?:  Array<Assist | null > | null,
+  nextToken?: string | null,
+};
+
+export type ModelGoalFilterInput = {
+  id?: ModelIDInput | null,
+  gameID?: ModelIDInput | null,
+  playerID?: ModelIDInput | null,
+  assistID?: ModelIDInput | null,
+  and?: Array< ModelGoalFilterInput | null > | null,
+  or?: Array< ModelGoalFilterInput | null > | null,
+  not?: ModelGoalFilterInput | null,
+};
+
+export type ModelIDInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -58,6 +129,32 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type ModelPlayerFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  position?: ModelStringInput | null,
+  team?: ModelIntInput | null,
+  and?: Array< ModelPlayerFilterInput | null > | null,
+  or?: Array< ModelPlayerFilterInput | null > | null,
+  not?: ModelPlayerFilterInput | null,
+};
+
+export type ModelStringInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
 export type ModelIntInput = {
   ne?: number | null,
   eq?: number | null,
@@ -70,55 +167,26 @@ export type ModelIntInput = {
   attributeType?: ModelAttributeTypes | null,
 };
 
-export type Player = {
-  __typename: "Player",
-  id: string,
-  name: string,
-  position: string,
-  team: number,
-  game?: ModelPlayerGameJoinConnection | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ModelPlayerGameJoinConnection = {
-  __typename: "ModelPlayerGameJoinConnection",
-  items?:  Array<PlayerGameJoin | null > | null,
+export type ModelPlayerConnection = {
+  __typename: "ModelPlayerConnection",
+  items?:  Array<Player | null > | null,
   nextToken?: string | null,
 };
 
-export type PlayerGameJoin = {
-  __typename: "PlayerGameJoin",
-  id: string,
-  playerID: string,
-  gameID: string,
-  game: Game,
-  player: Player,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type Game = {
-  __typename: "Game",
-  id: string,
-  against: string,
-  date: string,
+export type CreatePlayerInput = {
+  id?: string | null,
+  name: string,
+  position: string,
   team: number,
-  location: string,
-  live: boolean,
-  goals?:  Array<Goal | null > | null,
-  player?: ModelPlayerGameJoinConnection | null,
-  createdAt: string,
-  updatedAt: string,
 };
 
-export type Goal = {
-  __typename: "Goal",
-  id: string,
-  player: Player,
-  game: Game,
-  createdAt: string,
-  updatedAt: string,
+export type ModelPlayerConditionInput = {
+  name?: ModelStringInput | null,
+  position?: ModelStringInput | null,
+  team?: ModelIntInput | null,
+  and?: Array< ModelPlayerConditionInput | null > | null,
+  or?: Array< ModelPlayerConditionInput | null > | null,
+  not?: ModelPlayerConditionInput | null,
 };
 
 export type UpdatePlayerInput = {
@@ -186,22 +254,6 @@ export type ModelPlayerGameJoinConditionInput = {
   not?: ModelPlayerGameJoinConditionInput | null,
 };
 
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
-};
-
 export type UpdatePlayerGameJoinInput = {
   id: string,
   playerID?: string | null,
@@ -214,9 +266,15 @@ export type DeletePlayerGameJoinInput = {
 
 export type CreateGoalInput = {
   id?: string | null,
+  gameID: string,
+  playerID: string,
+  assistID?: string | null,
 };
 
 export type ModelGoalConditionInput = {
+  gameID?: ModelIDInput | null,
+  playerID?: ModelIDInput | null,
+  assistID?: ModelIDInput | null,
   and?: Array< ModelGoalConditionInput | null > | null,
   or?: Array< ModelGoalConditionInput | null > | null,
   not?: ModelGoalConditionInput | null,
@@ -224,26 +282,37 @@ export type ModelGoalConditionInput = {
 
 export type UpdateGoalInput = {
   id: string,
+  gameID?: string | null,
+  playerID?: string | null,
+  assistID?: string | null,
 };
 
 export type DeleteGoalInput = {
   id: string,
 };
 
-export type ModelPlayerFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  position?: ModelStringInput | null,
-  team?: ModelIntInput | null,
-  and?: Array< ModelPlayerFilterInput | null > | null,
-  or?: Array< ModelPlayerFilterInput | null > | null,
-  not?: ModelPlayerFilterInput | null,
+export type CreateAssistInput = {
+  id?: string | null,
+  gameID?: string | null,
+  playerID?: string | null,
 };
 
-export type ModelPlayerConnection = {
-  __typename: "ModelPlayerConnection",
-  items?:  Array<Player | null > | null,
-  nextToken?: string | null,
+export type ModelAssistConditionInput = {
+  gameID?: ModelIDInput | null,
+  playerID?: ModelIDInput | null,
+  and?: Array< ModelAssistConditionInput | null > | null,
+  or?: Array< ModelAssistConditionInput | null > | null,
+  not?: ModelAssistConditionInput | null,
+};
+
+export type UpdateAssistInput = {
+  id: string,
+  gameID?: string | null,
+  playerID?: string | null,
+};
+
+export type DeleteAssistInput = {
+  id: string,
 };
 
 export type ModelGameFilterInput = {
@@ -273,17 +342,129 @@ export type ModelPlayerGameJoinFilterInput = {
   not?: ModelPlayerGameJoinFilterInput | null,
 };
 
-export type ModelGoalFilterInput = {
+export type ModelAssistFilterInput = {
   id?: ModelIDInput | null,
-  and?: Array< ModelGoalFilterInput | null > | null,
-  or?: Array< ModelGoalFilterInput | null > | null,
-  not?: ModelGoalFilterInput | null,
+  gameID?: ModelIDInput | null,
+  playerID?: ModelIDInput | null,
+  and?: Array< ModelAssistFilterInput | null > | null,
+  or?: Array< ModelAssistFilterInput | null > | null,
+  not?: ModelAssistFilterInput | null,
 };
 
-export type ModelGoalConnection = {
-  __typename: "ModelGoalConnection",
-  items?:  Array<Goal | null > | null,
+export type GetGameCustomQueryVariables = {
+  id: string,
+};
+
+export type GetGameCustomQuery = {
+  getGame?:  {
+    __typename: "Game",
+    id: string,
+    against: string,
+    date: string,
+    team: number,
+    location: string,
+    live: boolean,
+    player?:  {
+      __typename: "ModelPlayerGameJoinConnection",
+      items?:  Array< {
+        __typename: "PlayerGameJoin",
+        id: string,
+        playerID: string,
+        gameID: string,
+        player?:  {
+          __typename: "Player",
+          name: string,
+          position: string,
+          team: number,
+        } | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListGoalsCustomQueryVariables = {
+  filter?: ModelGoalFilterInput | null,
+  limit?: number | null,
   nextToken?: string | null,
+};
+
+export type ListGoalsCustomQuery = {
+  listGoals?:  {
+    __typename: "ModelGoalConnection",
+    items?:  Array< {
+      __typename: "Goal",
+      id: string,
+      gameID: string,
+      playerID: string,
+      assistID?: string | null,
+      player?:  {
+        __typename: "Player",
+        id: string,
+        name: string,
+        position: string,
+        team: number,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      assist?:  {
+        __typename: "Assist",
+        id?: string | null,
+        gameID?: string | null,
+        playerID?: string | null,
+        player?:  {
+          __typename: "Player",
+          name: string,
+        } | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type ListPlayersCustomQueryVariables = {
+  filter?: ModelPlayerFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListPlayersCustomQuery = {
+  listPlayers?:  {
+    __typename: "ModelPlayerConnection",
+    items?:  Array< {
+      __typename: "Player",
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        items?:  Array< {
+          __typename: "Goal",
+          id: string,
+        } | null > | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        items?:  Array< {
+          __typename: "Assist",
+          id?: string | null,
+        } | null > | null,
+      } | null,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
 };
 
 export type CreatePlayerMutationVariables = {
@@ -305,6 +486,31 @@ export type CreatePlayerMutation = {
         id: string,
         playerID: string,
         gameID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    goals?:  {
+      __typename: "ModelGoalConnection",
+      items?:  Array< {
+        __typename: "Goal",
+        id: string,
+        gameID: string,
+        playerID: string,
+        assistID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    assists?:  {
+      __typename: "ModelAssistConnection",
+      items?:  Array< {
+        __typename: "Assist",
+        id?: string | null,
+        gameID?: string | null,
+        playerID?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -339,6 +545,31 @@ export type UpdatePlayerMutation = {
       } | null > | null,
       nextToken?: string | null,
     } | null,
+    goals?:  {
+      __typename: "ModelGoalConnection",
+      items?:  Array< {
+        __typename: "Goal",
+        id: string,
+        gameID: string,
+        playerID: string,
+        assistID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    assists?:  {
+      __typename: "ModelAssistConnection",
+      items?:  Array< {
+        __typename: "Assist",
+        id?: string | null,
+        gameID?: string | null,
+        playerID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -368,6 +599,31 @@ export type DeletePlayerMutation = {
       } | null > | null,
       nextToken?: string | null,
     } | null,
+    goals?:  {
+      __typename: "ModelGoalConnection",
+      items?:  Array< {
+        __typename: "Goal",
+        id: string,
+        gameID: string,
+        playerID: string,
+        assistID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    assists?:  {
+      __typename: "ModelAssistConnection",
+      items?:  Array< {
+        __typename: "Assist",
+        id?: string | null,
+        gameID?: string | null,
+        playerID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -387,32 +643,6 @@ export type CreateGameMutation = {
     team: number,
     location: string,
     live: boolean,
-    goals?:  Array< {
-      __typename: "Goal",
-      id: string,
-      player:  {
-        __typename: "Player",
-        id: string,
-        name: string,
-        position: string,
-        team: number,
-        createdAt: string,
-        updatedAt: string,
-      },
-      game:  {
-        __typename: "Game",
-        id: string,
-        against: string,
-        date: string,
-        team: number,
-        location: string,
-        live: boolean,
-        createdAt: string,
-        updatedAt: string,
-      },
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
     player?:  {
       __typename: "ModelPlayerGameJoinConnection",
       items?:  Array< {
@@ -444,32 +674,6 @@ export type UpdateGameMutation = {
     team: number,
     location: string,
     live: boolean,
-    goals?:  Array< {
-      __typename: "Goal",
-      id: string,
-      player:  {
-        __typename: "Player",
-        id: string,
-        name: string,
-        position: string,
-        team: number,
-        createdAt: string,
-        updatedAt: string,
-      },
-      game:  {
-        __typename: "Game",
-        id: string,
-        against: string,
-        date: string,
-        team: number,
-        location: string,
-        live: boolean,
-        createdAt: string,
-        updatedAt: string,
-      },
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
     player?:  {
       __typename: "ModelPlayerGameJoinConnection",
       items?:  Array< {
@@ -501,32 +705,6 @@ export type DeleteGameMutation = {
     team: number,
     location: string,
     live: boolean,
-    goals?:  Array< {
-      __typename: "Goal",
-      id: string,
-      player:  {
-        __typename: "Player",
-        id: string,
-        name: string,
-        position: string,
-        team: number,
-        createdAt: string,
-        updatedAt: string,
-      },
-      game:  {
-        __typename: "Game",
-        id: string,
-        against: string,
-        date: string,
-        team: number,
-        location: string,
-        live: boolean,
-        createdAt: string,
-        updatedAt: string,
-      },
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
     player?:  {
       __typename: "ModelPlayerGameJoinConnection",
       items?:  Array< {
@@ -555,7 +733,7 @@ export type CreatePlayerGameJoinMutation = {
     id: string,
     playerID: string,
     gameID: string,
-    game:  {
+    game?:  {
       __typename: "Game",
       id: string,
       against: string,
@@ -563,20 +741,14 @@ export type CreatePlayerGameJoinMutation = {
       team: number,
       location: string,
       live: boolean,
-      goals?:  Array< {
-        __typename: "Goal",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
       player?:  {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-    },
-    player:  {
+    } | null,
+    player?:  {
       __typename: "Player",
       id: string,
       name: string,
@@ -586,9 +758,17 @@ export type CreatePlayerGameJoinMutation = {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -605,7 +785,7 @@ export type UpdatePlayerGameJoinMutation = {
     id: string,
     playerID: string,
     gameID: string,
-    game:  {
+    game?:  {
       __typename: "Game",
       id: string,
       against: string,
@@ -613,20 +793,14 @@ export type UpdatePlayerGameJoinMutation = {
       team: number,
       location: string,
       live: boolean,
-      goals?:  Array< {
-        __typename: "Goal",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
       player?:  {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-    },
-    player:  {
+    } | null,
+    player?:  {
       __typename: "Player",
       id: string,
       name: string,
@@ -636,9 +810,17 @@ export type UpdatePlayerGameJoinMutation = {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -655,7 +837,7 @@ export type DeletePlayerGameJoinMutation = {
     id: string,
     playerID: string,
     gameID: string,
-    game:  {
+    game?:  {
       __typename: "Game",
       id: string,
       against: string,
@@ -663,20 +845,14 @@ export type DeletePlayerGameJoinMutation = {
       team: number,
       location: string,
       live: boolean,
-      goals?:  Array< {
-        __typename: "Goal",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
       player?:  {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-    },
-    player:  {
+    } | null,
+    player?:  {
       __typename: "Player",
       id: string,
       name: string,
@@ -686,9 +862,17 @@ export type DeletePlayerGameJoinMutation = {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -703,7 +887,10 @@ export type CreateGoalMutation = {
   createGoal?:  {
     __typename: "Goal",
     id: string,
-    player:  {
+    gameID: string,
+    playerID: string,
+    assistID?: string | null,
+    player?:  {
       __typename: "Player",
       id: string,
       name: string,
@@ -713,30 +900,34 @@ export type CreateGoalMutation = {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    game:  {
-      __typename: "Game",
-      id: string,
-      against: string,
-      date: string,
-      team: number,
-      location: string,
-      live: boolean,
-      goals?:  Array< {
-        __typename: "Goal",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      player?:  {
-        __typename: "ModelPlayerGameJoinConnection",
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
+    assist?:  {
+      __typename: "Assist",
+      id?: string | null,
+      gameID?: string | null,
+      playerID?: string | null,
+      player?:  {
+        __typename: "Player",
+        id: string,
+        name: string,
+        position: string,
+        team: number,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -751,7 +942,10 @@ export type UpdateGoalMutation = {
   updateGoal?:  {
     __typename: "Goal",
     id: string,
-    player:  {
+    gameID: string,
+    playerID: string,
+    assistID?: string | null,
+    player?:  {
       __typename: "Player",
       id: string,
       name: string,
@@ -761,30 +955,34 @@ export type UpdateGoalMutation = {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    game:  {
-      __typename: "Game",
-      id: string,
-      against: string,
-      date: string,
-      team: number,
-      location: string,
-      live: boolean,
-      goals?:  Array< {
-        __typename: "Goal",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      player?:  {
-        __typename: "ModelPlayerGameJoinConnection",
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
+    assist?:  {
+      __typename: "Assist",
+      id?: string | null,
+      gameID?: string | null,
+      playerID?: string | null,
+      player?:  {
+        __typename: "Player",
+        id: string,
+        name: string,
+        position: string,
+        team: number,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -799,7 +997,10 @@ export type DeleteGoalMutation = {
   deleteGoal?:  {
     __typename: "Goal",
     id: string,
-    player:  {
+    gameID: string,
+    playerID: string,
+    assistID?: string | null,
+    player?:  {
       __typename: "Player",
       id: string,
       name: string,
@@ -809,30 +1010,145 @@ export type DeleteGoalMutation = {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    game:  {
-      __typename: "Game",
-      id: string,
-      against: string,
-      date: string,
-      team: number,
-      location: string,
-      live: boolean,
-      goals?:  Array< {
-        __typename: "Goal",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      player?:  {
-        __typename: "ModelPlayerGameJoinConnection",
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
+    assist?:  {
+      __typename: "Assist",
+      id?: string | null,
+      gameID?: string | null,
+      playerID?: string | null,
+      player?:  {
+        __typename: "Player",
+        id: string,
+        name: string,
+        position: string,
+        team: number,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateAssistMutationVariables = {
+  input: CreateAssistInput,
+  condition?: ModelAssistConditionInput | null,
+};
+
+export type CreateAssistMutation = {
+  createAssist?:  {
+    __typename: "Assist",
+    id?: string | null,
+    gameID?: string | null,
+    playerID?: string | null,
+    player?:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateAssistMutationVariables = {
+  input: UpdateAssistInput,
+  condition?: ModelAssistConditionInput | null,
+};
+
+export type UpdateAssistMutation = {
+  updateAssist?:  {
+    __typename: "Assist",
+    id?: string | null,
+    gameID?: string | null,
+    playerID?: string | null,
+    player?:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteAssistMutationVariables = {
+  input: DeleteAssistInput,
+  condition?: ModelAssistConditionInput | null,
+};
+
+export type DeleteAssistMutation = {
+  deleteAssist?:  {
+    __typename: "Assist",
+    id?: string | null,
+    gameID?: string | null,
+    playerID?: string | null,
+    player?:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -856,6 +1172,31 @@ export type GetPlayerQuery = {
         id: string,
         playerID: string,
         gameID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    goals?:  {
+      __typename: "ModelGoalConnection",
+      items?:  Array< {
+        __typename: "Goal",
+        id: string,
+        gameID: string,
+        playerID: string,
+        assistID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    assists?:  {
+      __typename: "ModelAssistConnection",
+      items?:  Array< {
+        __typename: "Assist",
+        id?: string | null,
+        gameID?: string | null,
+        playerID?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -885,6 +1226,14 @@ export type ListPlayersQuery = {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null > | null,
@@ -905,32 +1254,6 @@ export type GetGameQuery = {
     team: number,
     location: string,
     live: boolean,
-    goals?:  Array< {
-      __typename: "Goal",
-      id: string,
-      player:  {
-        __typename: "Player",
-        id: string,
-        name: string,
-        position: string,
-        team: number,
-        createdAt: string,
-        updatedAt: string,
-      },
-      game:  {
-        __typename: "Game",
-        id: string,
-        against: string,
-        date: string,
-        team: number,
-        location: string,
-        live: boolean,
-        createdAt: string,
-        updatedAt: string,
-      },
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
     player?:  {
       __typename: "ModelPlayerGameJoinConnection",
       items?:  Array< {
@@ -965,12 +1288,6 @@ export type ListGamesQuery = {
       team: number,
       location: string,
       live: boolean,
-      goals?:  Array< {
-        __typename: "Goal",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
       player?:  {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
@@ -992,7 +1309,7 @@ export type GetPlayerGameJoinQuery = {
     id: string,
     playerID: string,
     gameID: string,
-    game:  {
+    game?:  {
       __typename: "Game",
       id: string,
       against: string,
@@ -1000,20 +1317,14 @@ export type GetPlayerGameJoinQuery = {
       team: number,
       location: string,
       live: boolean,
-      goals?:  Array< {
-        __typename: "Goal",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
       player?:  {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-    },
-    player:  {
+    } | null,
+    player?:  {
       __typename: "Player",
       id: string,
       name: string,
@@ -1023,9 +1334,17 @@ export type GetPlayerGameJoinQuery = {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1045,7 +1364,7 @@ export type ListPlayerGameJoinsQuery = {
       id: string,
       playerID: string,
       gameID: string,
-      game:  {
+      game?:  {
         __typename: "Game",
         id: string,
         against: string,
@@ -1055,8 +1374,8 @@ export type ListPlayerGameJoinsQuery = {
         live: boolean,
         createdAt: string,
         updatedAt: string,
-      },
-      player:  {
+      } | null,
+      player?:  {
         __typename: "Player",
         id: string,
         name: string,
@@ -1064,7 +1383,7 @@ export type ListPlayerGameJoinsQuery = {
         team: number,
         createdAt: string,
         updatedAt: string,
-      },
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null > | null,
@@ -1080,7 +1399,10 @@ export type GetGoalQuery = {
   getGoal?:  {
     __typename: "Goal",
     id: string,
-    player:  {
+    gameID: string,
+    playerID: string,
+    assistID?: string | null,
+    player?:  {
       __typename: "Player",
       id: string,
       name: string,
@@ -1090,30 +1412,34 @@ export type GetGoalQuery = {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    game:  {
-      __typename: "Game",
-      id: string,
-      against: string,
-      date: string,
-      team: number,
-      location: string,
-      live: boolean,
-      goals?:  Array< {
-        __typename: "Goal",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      player?:  {
-        __typename: "ModelPlayerGameJoinConnection",
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
+    assist?:  {
+      __typename: "Assist",
+      id?: string | null,
+      gameID?: string | null,
+      playerID?: string | null,
+      player?:  {
+        __typename: "Player",
+        id: string,
+        name: string,
+        position: string,
+        team: number,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1131,7 +1457,10 @@ export type ListGoalsQuery = {
     items?:  Array< {
       __typename: "Goal",
       id: string,
-      player:  {
+      gameID: string,
+      playerID: string,
+      assistID?: string | null,
+      player?:  {
         __typename: "Player",
         id: string,
         name: string,
@@ -1139,18 +1468,81 @@ export type ListGoalsQuery = {
         team: number,
         createdAt: string,
         updatedAt: string,
-      },
-      game:  {
-        __typename: "Game",
-        id: string,
-        against: string,
-        date: string,
-        team: number,
-        location: string,
-        live: boolean,
+      } | null,
+      assist?:  {
+        __typename: "Assist",
+        id?: string | null,
+        gameID?: string | null,
+        playerID?: string | null,
         createdAt: string,
         updatedAt: string,
-      },
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetAssistQueryVariables = {
+  id: string,
+};
+
+export type GetAssistQuery = {
+  getAssist?:  {
+    __typename: "Assist",
+    id?: string | null,
+    gameID?: string | null,
+    playerID?: string | null,
+    player?:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListAssistsQueryVariables = {
+  filter?: ModelAssistFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListAssistsQuery = {
+  listAssists?:  {
+    __typename: "ModelAssistConnection",
+    items?:  Array< {
+      __typename: "Assist",
+      id?: string | null,
+      gameID?: string | null,
+      playerID?: string | null,
+      player?:  {
+        __typename: "Player",
+        id: string,
+        name: string,
+        position: string,
+        team: number,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null > | null,
@@ -1172,6 +1564,31 @@ export type OnCreatePlayerSubscription = {
         id: string,
         playerID: string,
         gameID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    goals?:  {
+      __typename: "ModelGoalConnection",
+      items?:  Array< {
+        __typename: "Goal",
+        id: string,
+        gameID: string,
+        playerID: string,
+        assistID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    assists?:  {
+      __typename: "ModelAssistConnection",
+      items?:  Array< {
+        __typename: "Assist",
+        id?: string | null,
+        gameID?: string | null,
+        playerID?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -1201,6 +1618,31 @@ export type OnUpdatePlayerSubscription = {
       } | null > | null,
       nextToken?: string | null,
     } | null,
+    goals?:  {
+      __typename: "ModelGoalConnection",
+      items?:  Array< {
+        __typename: "Goal",
+        id: string,
+        gameID: string,
+        playerID: string,
+        assistID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    assists?:  {
+      __typename: "ModelAssistConnection",
+      items?:  Array< {
+        __typename: "Assist",
+        id?: string | null,
+        gameID?: string | null,
+        playerID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1225,6 +1667,31 @@ export type OnDeletePlayerSubscription = {
       } | null > | null,
       nextToken?: string | null,
     } | null,
+    goals?:  {
+      __typename: "ModelGoalConnection",
+      items?:  Array< {
+        __typename: "Goal",
+        id: string,
+        gameID: string,
+        playerID: string,
+        assistID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    assists?:  {
+      __typename: "ModelAssistConnection",
+      items?:  Array< {
+        __typename: "Assist",
+        id?: string | null,
+        gameID?: string | null,
+        playerID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1239,32 +1706,6 @@ export type OnCreateGameSubscription = {
     team: number,
     location: string,
     live: boolean,
-    goals?:  Array< {
-      __typename: "Goal",
-      id: string,
-      player:  {
-        __typename: "Player",
-        id: string,
-        name: string,
-        position: string,
-        team: number,
-        createdAt: string,
-        updatedAt: string,
-      },
-      game:  {
-        __typename: "Game",
-        id: string,
-        against: string,
-        date: string,
-        team: number,
-        location: string,
-        live: boolean,
-        createdAt: string,
-        updatedAt: string,
-      },
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
     player?:  {
       __typename: "ModelPlayerGameJoinConnection",
       items?:  Array< {
@@ -1291,32 +1732,6 @@ export type OnUpdateGameSubscription = {
     team: number,
     location: string,
     live: boolean,
-    goals?:  Array< {
-      __typename: "Goal",
-      id: string,
-      player:  {
-        __typename: "Player",
-        id: string,
-        name: string,
-        position: string,
-        team: number,
-        createdAt: string,
-        updatedAt: string,
-      },
-      game:  {
-        __typename: "Game",
-        id: string,
-        against: string,
-        date: string,
-        team: number,
-        location: string,
-        live: boolean,
-        createdAt: string,
-        updatedAt: string,
-      },
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
     player?:  {
       __typename: "ModelPlayerGameJoinConnection",
       items?:  Array< {
@@ -1343,32 +1758,6 @@ export type OnDeleteGameSubscription = {
     team: number,
     location: string,
     live: boolean,
-    goals?:  Array< {
-      __typename: "Goal",
-      id: string,
-      player:  {
-        __typename: "Player",
-        id: string,
-        name: string,
-        position: string,
-        team: number,
-        createdAt: string,
-        updatedAt: string,
-      },
-      game:  {
-        __typename: "Game",
-        id: string,
-        against: string,
-        date: string,
-        team: number,
-        location: string,
-        live: boolean,
-        createdAt: string,
-        updatedAt: string,
-      },
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
     player?:  {
       __typename: "ModelPlayerGameJoinConnection",
       items?:  Array< {
@@ -1392,7 +1781,7 @@ export type OnCreatePlayerGameJoinSubscription = {
     id: string,
     playerID: string,
     gameID: string,
-    game:  {
+    game?:  {
       __typename: "Game",
       id: string,
       against: string,
@@ -1400,20 +1789,14 @@ export type OnCreatePlayerGameJoinSubscription = {
       team: number,
       location: string,
       live: boolean,
-      goals?:  Array< {
-        __typename: "Goal",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
       player?:  {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-    },
-    player:  {
+    } | null,
+    player?:  {
       __typename: "Player",
       id: string,
       name: string,
@@ -1423,9 +1806,17 @@ export type OnCreatePlayerGameJoinSubscription = {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1437,7 +1828,7 @@ export type OnUpdatePlayerGameJoinSubscription = {
     id: string,
     playerID: string,
     gameID: string,
-    game:  {
+    game?:  {
       __typename: "Game",
       id: string,
       against: string,
@@ -1445,20 +1836,14 @@ export type OnUpdatePlayerGameJoinSubscription = {
       team: number,
       location: string,
       live: boolean,
-      goals?:  Array< {
-        __typename: "Goal",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
       player?:  {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-    },
-    player:  {
+    } | null,
+    player?:  {
       __typename: "Player",
       id: string,
       name: string,
@@ -1468,9 +1853,17 @@ export type OnUpdatePlayerGameJoinSubscription = {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1482,7 +1875,7 @@ export type OnDeletePlayerGameJoinSubscription = {
     id: string,
     playerID: string,
     gameID: string,
-    game:  {
+    game?:  {
       __typename: "Game",
       id: string,
       against: string,
@@ -1490,20 +1883,14 @@ export type OnDeletePlayerGameJoinSubscription = {
       team: number,
       location: string,
       live: boolean,
-      goals?:  Array< {
-        __typename: "Goal",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
       player?:  {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-    },
-    player:  {
+    } | null,
+    player?:  {
       __typename: "Player",
       id: string,
       name: string,
@@ -1513,9 +1900,17 @@ export type OnDeletePlayerGameJoinSubscription = {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1525,7 +1920,10 @@ export type OnCreateGoalSubscription = {
   onCreateGoal?:  {
     __typename: "Goal",
     id: string,
-    player:  {
+    gameID: string,
+    playerID: string,
+    assistID?: string | null,
+    player?:  {
       __typename: "Player",
       id: string,
       name: string,
@@ -1535,30 +1933,34 @@ export type OnCreateGoalSubscription = {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    game:  {
-      __typename: "Game",
-      id: string,
-      against: string,
-      date: string,
-      team: number,
-      location: string,
-      live: boolean,
-      goals?:  Array< {
-        __typename: "Goal",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      player?:  {
-        __typename: "ModelPlayerGameJoinConnection",
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
+    assist?:  {
+      __typename: "Assist",
+      id?: string | null,
+      gameID?: string | null,
+      playerID?: string | null,
+      player?:  {
+        __typename: "Player",
+        id: string,
+        name: string,
+        position: string,
+        team: number,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1568,7 +1970,10 @@ export type OnUpdateGoalSubscription = {
   onUpdateGoal?:  {
     __typename: "Goal",
     id: string,
-    player:  {
+    gameID: string,
+    playerID: string,
+    assistID?: string | null,
+    player?:  {
       __typename: "Player",
       id: string,
       name: string,
@@ -1578,30 +1983,34 @@ export type OnUpdateGoalSubscription = {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    game:  {
-      __typename: "Game",
-      id: string,
-      against: string,
-      date: string,
-      team: number,
-      location: string,
-      live: boolean,
-      goals?:  Array< {
-        __typename: "Goal",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      player?:  {
-        __typename: "ModelPlayerGameJoinConnection",
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
+    assist?:  {
+      __typename: "Assist",
+      id?: string | null,
+      gameID?: string | null,
+      playerID?: string | null,
+      player?:  {
+        __typename: "Player",
+        id: string,
+        name: string,
+        position: string,
+        team: number,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1611,7 +2020,10 @@ export type OnDeleteGoalSubscription = {
   onDeleteGoal?:  {
     __typename: "Goal",
     id: string,
-    player:  {
+    gameID: string,
+    playerID: string,
+    assistID?: string | null,
+    player?:  {
       __typename: "Player",
       id: string,
       name: string,
@@ -1621,30 +2033,130 @@ export type OnDeleteGoalSubscription = {
         __typename: "ModelPlayerGameJoinConnection",
         nextToken?: string | null,
       } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    game:  {
-      __typename: "Game",
-      id: string,
-      against: string,
-      date: string,
-      team: number,
-      location: string,
-      live: boolean,
-      goals?:  Array< {
-        __typename: "Goal",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      player?:  {
-        __typename: "ModelPlayerGameJoinConnection",
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
+    assist?:  {
+      __typename: "Assist",
+      id?: string | null,
+      gameID?: string | null,
+      playerID?: string | null,
+      player?:  {
+        __typename: "Player",
+        id: string,
+        name: string,
+        position: string,
+        team: number,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateAssistSubscription = {
+  onCreateAssist?:  {
+    __typename: "Assist",
+    id?: string | null,
+    gameID?: string | null,
+    playerID?: string | null,
+    player?:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateAssistSubscription = {
+  onUpdateAssist?:  {
+    __typename: "Assist",
+    id?: string | null,
+    gameID?: string | null,
+    playerID?: string | null,
+    player?:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteAssistSubscription = {
+  onDeleteAssist?:  {
+    __typename: "Assist",
+    id?: string | null,
+    gameID?: string | null,
+    playerID?: string | null,
+    player?:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,

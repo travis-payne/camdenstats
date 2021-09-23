@@ -157,17 +157,6 @@ export const getPlayerGameJoin = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      goals {
-        items {
-          id
-          gameID
-          playerID
-          assistID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -201,9 +190,6 @@ export const listPlayerGameJoins = /* GraphQL */ `
           team
           createdAt
           updatedAt
-        }
-        goals {
-          nextToken
         }
         createdAt
         updatedAt

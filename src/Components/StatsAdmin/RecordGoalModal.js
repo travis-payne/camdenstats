@@ -5,7 +5,7 @@ import { API, graphqlOperation } from 'aws-amplify'
 import * as mutations from '../../graphql/mutations'
 import { v4 as uuidv4 } from 'uuid'
 
-const blankState = { player: '' }
+const blankState = { player: '', assist: '' }
 
 const RecordGoalModal = (props) => {
   const [form, setForm] = useState(blankState)
@@ -22,7 +22,10 @@ const RecordGoalModal = (props) => {
     try {
       const playerId = form.player;
       var assistPlayerId = form.assist;
+
+      console.log(form);
       const assistID = uuidv4()
+
       if (assistPlayerId !== 'Unassisted') {
         // Create assist, get assist ID, assign to assist
         await API.graphql(
@@ -30,7 +33,7 @@ const RecordGoalModal = (props) => {
             input: {
               id: assistID,
               playerID: assistPlayerId,
-              gameID: props.gameId,
+              gameID: props.gameid,
             },
           }),
         )
@@ -40,7 +43,7 @@ const RecordGoalModal = (props) => {
         graphqlOperation(mutations.createGoal, {
           input: {
             playerID: playerId,
-            gameID: props.gameId,
+            gameID: props.gameid,
             assistID: assistID,
           },
         }),
@@ -50,12 +53,12 @@ const RecordGoalModal = (props) => {
     }
     e.target.reset()
     props.onHide()
-    props.onGoal(props.gameId)
+    props.goalscored(props.gameid)
   }
-
   return (
     <Modal
-      {...props}
+      show={props.show}
+      onHide={props.onHide}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
@@ -85,6 +88,7 @@ const RecordGoalModal = (props) => {
               aria-label="Assisted By"
               onChange={(e) => setField('assist', e.target.value)}
             >
+              <option> </option>
               <option value="Unassisted">Unassisted</option>
               {props.players.map((player) => {
                 return <option value={player.id}> {player.name} </option>

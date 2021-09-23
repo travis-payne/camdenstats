@@ -260,17 +260,6 @@ export const createPlayerGameJoin = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      goals {
-        items {
-          id
-          gameID
-          playerID
-          assistID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -315,17 +304,6 @@ export const updatePlayerGameJoin = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      goals {
-        items {
-          id
-          gameID
-          playerID
-          assistID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -369,17 +347,6 @@ export const deletePlayerGameJoin = /* GraphQL */ `
         }
         createdAt
         updatedAt
-      }
-      goals {
-        items {
-          id
-          gameID
-          playerID
-          assistID
-          createdAt
-          updatedAt
-        }
-        nextToken
       }
       createdAt
       updatedAt

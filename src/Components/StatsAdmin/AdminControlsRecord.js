@@ -35,10 +35,10 @@ const AdminControlsRecord = () => {
 
     const data = await GraphQlUtils.getGoalsByGame(id)
     const newData = data.map((item) => {
-      console.log(item);
+      console.log(item)
       return {
         id: item.id,
-        assistId: item.assistId,
+        assistId: item.assistID,
         player: item.player.name,
         position: item.player.position,
         team: item.player.team,
@@ -65,10 +65,6 @@ const AdminControlsRecord = () => {
     var filtered = goalData.filter( (goal) => !deletedIds.includes(goal.id));
     setGoalData(filtered)
   }
-
-  
-
-
 
   useEffect(() => {
     fetchGames()
@@ -126,7 +122,7 @@ const AdminControlsRecord = () => {
             ]}
           />
         </Col>
-        <Col>{gameId !== '' ? <RecordStats gameId={gameId} onGoal={getGoals} /> : null}</Col>
+        <Col>{gameId !== '' ? <RecordStats gameId={gameId} goalScored={getGoals} /> : null}</Col>
       </Row>
       <Row>
         <Col>

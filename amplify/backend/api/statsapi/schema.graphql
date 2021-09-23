@@ -6,7 +6,6 @@ type Player @model {
   game:[PlayerGameJoin] @connection(keyName: "byPlayer", fields: ["id"])
   goals: [Goal] @connection(keyName:"byPlayer",fields:["id"])
   assists: [Assist] @connection(keyName:"byPlayer",fields:["id"])
-
 }
 
 type Game @model {
@@ -27,8 +26,6 @@ type PlayerGameJoin @model
   gameID: ID!
   game: Game @connection(fields:["gameID"])
   player: Player @connection(fields:["playerID"])
-  goals: [Goal] @connection(keyName:"byGame",fields:["id"])
-
 }
 
 type Goal @model
@@ -50,3 +47,4 @@ type Assist @model
   playerID: ID
   player: Player @connection(fields:["playerID"])
 }
+

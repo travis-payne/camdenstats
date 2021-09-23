@@ -10,6 +10,7 @@ const RecordStats = (props) => {
     const [goalModalShow, setGoalModalShow] = useState(false);
     const [playersInGame, setPlayersInGame] = useState([])
 
+
     const recordClicked = async () => {
         await fetchPlayersInGame()
         setGoalModalShow(true)
@@ -29,6 +30,8 @@ const RecordStats = (props) => {
     fetchPlayersInGame()
   }, []);
 
+
+
   return (
     <Container className="d-flex h-100 justify-content-center align-items-center">
       <Nav defaultActiveKey="/home" className="flex-column">
@@ -40,8 +43,8 @@ const RecordStats = (props) => {
         show={goalModalShow}
         onHide={() => setGoalModalShow(false)}
         players={playersInGame}
-        gameId={props.gameId}
-        onGoal={props.onGoal}
+        gameid={props.gameId}
+        goalscored={props.goalScored}
       />
     </Container>
   )

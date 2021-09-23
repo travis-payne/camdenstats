@@ -36,6 +36,13 @@ const Navigation = ({ childProps }) => {
                   >
                     Home
                 </Nav.Item>
+                <Nav.Item
+                    as={Link}
+                    className="btn d-flex align-items-center"
+                    to="/"
+                  >
+                    Search Stats
+                </Nav.Item>
               {childProps.isLoggedIn ? (
                 <NavDropdown
                   className="btn d-flex align-items-center"

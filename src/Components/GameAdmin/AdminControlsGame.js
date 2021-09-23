@@ -116,25 +116,21 @@ const AdminControlsGame = () => {
                   onClick: deleteGame,
                 }),
               ]}
-              detailPanel= {[
-                {
-                    tooltip: 'Show Name',
-                    render: rowData => {
-                      return (
-                        <div
-                          style={{
-                            fontSize: 100,
-                            textAlign: 'center',
-                            color: 'white',
-                            backgroundColor: '#43A047',
-                          }}
-                        >
-                          <GameDetails props={rowData} />
-                        </div>
-                      )
-                    },
-                  } 
-              ]}
+              detailPanel={
+                ({rowData}) =>{
+                  return(
+                    <div
+                    style={{
+                      fontSize: 100,
+                      textAlign: 'center',
+                      color: 'white',
+                      backgroundColor: '#43A047',
+                    }}
+                  ><GameDetails props={rowData} />
+                     </div>)
+                }
+              }
+            
           />
         </Row>
     </Container>

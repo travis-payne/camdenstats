@@ -1,19 +1,42 @@
 import * as mutations from '../graphql/mutations'
 import { API, graphqlOperation } from 'aws-amplify'
-import { listPlayers, listGames, listPlayerGameJoins, listGoals, listAssists } from '../graphql/queries'
-import { getGameCustom, listGoalsCustom } from '../graphql/customqueries'
+import { listPlayers, listGames, listPlayerGameJoins, listGoals, listAssists, getGame } from '../graphql/queries'
+import { getGameCustom, listGoalsCustom,listPlayersCustom } from '../graphql/customqueries'
 
 class GraphQlUtils {
   static fetchPlayers = async () => {
     try {
       const playerData = await API.graphql(graphqlOperation(listPlayers))
       const players = playerData.data.listPlayers.items
-      console.log(players);
       return players
     } catch (err) {
       console.log(err)
     }
   }
+
+  static fetchAndAggregatePlayers = async () => {
+    try {
+      const playerData = await API.graphql(graphqlOperation(listPlayersCustom))
+      const players = playerData.data.listPlayers.items
+      const aggregatedData = players.map((player) => {
+          return {
+            name: player.name,
+            position: player.position,
+            team: player.team,
+            goals: player.goals ? player.goals.items.length : 0,
+            assists: player.assists ? player.assists.items.length : 0,
+            points: ( player.goals ? player.goals.items.length : 0 ) + (player.assists ? player.assists.items.length : 0)
+          }
+
+      })
+      return aggregatedData
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+
+
 
   static fetchGames = async () => {
     try {

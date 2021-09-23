@@ -239,17 +239,6 @@ export const onCreatePlayerGameJoin = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      goals {
-        items {
-          id
-          gameID
-          playerID
-          assistID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -291,17 +280,6 @@ export const onUpdatePlayerGameJoin = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      goals {
-        items {
-          id
-          gameID
-          playerID
-          assistID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -342,17 +320,6 @@ export const onDeletePlayerGameJoin = /* GraphQL */ `
         }
         createdAt
         updatedAt
-      }
-      goals {
-        items {
-          id
-          gameID
-          playerID
-          assistID
-          createdAt
-          updatedAt
-        }
-        nextToken
       }
       createdAt
       updatedAt

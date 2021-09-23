@@ -39,24 +39,31 @@ const GameDetails = (props) => {
       })
     }
 
-  const { against, date, live, team, id } = props.props;
 
+  const { against, team, id } = props.props;
+ 
   const fetchPlayersInGame = async () => {
       const playerArray = [];
+    
       const result = await GraphQlUtils.getPlayersByGame(id);
+      if(!result){
+        return
+      }
         result.forEach( (p) => {
-            playerArray.push(p.player);
+          console.log(p.player)
+          playerArray.push(p.player);
         });
+
     setPlayersInGame(playerArray);
   }
 
   useEffect(() => {
     fetchPlayersInGame()
-  });
+  },[]);
 
   useEffect(() => {
     fetchAllPlayers()
-  });
+  },[]);
 
   const fetchAllPlayers = async () => {
   setPlayers(await GraphQlUtils.fetchPlayers());

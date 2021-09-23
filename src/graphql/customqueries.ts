@@ -1,5 +1,5 @@
 export const getGameCustom = /* GraphQL */ `
-  query GetGame($id: ID!) {
+  query GetGameCustom($id: ID!) {
     getGame(id: $id) {
       id
       against
@@ -30,7 +30,7 @@ export const getGameCustom = /* GraphQL */ `
 `;
 
 export const listGoalsCustom = /* GraphQL */ `
-  query ListGoals(
+  query ListGoalsCustom(
     $filter: ModelGoalFilterInput
     $limit: Int
     $nextToken: String
@@ -53,11 +53,44 @@ export const listGoalsCustom = /* GraphQL */ `
           id
           gameID
           playerID
-          player {
+          player{
             name
           }
           createdAt
           updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+
+export const listPlayersCustom = /* GraphQL */ `
+  query listPlayersCustom(
+    $filter: ModelPlayerFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPlayers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        position
+        team
+        game {
+          nextToken
+        }
+        goals {
+          items{
+            id
+          }
+        }
+        assists {
+          items{
+            id
+          }
         }
         createdAt
         updatedAt

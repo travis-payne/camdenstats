@@ -1,5 +1,5 @@
 
-import {Switch, Route} from 'react-router-dom';
+import {Switch} from 'react-router-dom';
 import AuthComponent from './AuthComponent.js';
 import ProtectedRoute from './ProtectedRoute.js';
 import ProppedRoute from './ProppedRoute.js';
@@ -11,7 +11,7 @@ import AdminControlsRecord from './StatsAdmin/AdminControlsRecord.js';
 
 const Routes = ({ childProps }) => (
     <Switch>
-        <Route exact path="/" render={Home} />
+        <ProppedRoute exact path="/" render={Home} />
         <ProppedRoute 
             exact 
             path="/auth" 
