@@ -8,6 +8,7 @@ class GraphQlUtils {
     try {
       const playerData = await API.graphql(graphqlOperation(listPlayers))
       const players = playerData.data.listPlayers.items
+      console.log(players);
       return players
     } catch (err) {
       console.log(err)

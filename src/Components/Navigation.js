@@ -29,9 +29,13 @@ const Navigation = ({ childProps }) => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Link className="btn d-flex align-items-center" to="/">
-                Home
-              </Link>
+            <Nav.Item
+                    as={Link}
+                    className="btn d-flex align-items-center"
+                    to="/"
+                  >
+                    Home
+                </Nav.Item>
               {childProps.isLoggedIn ? (
                 <NavDropdown
                   className="btn d-flex align-items-center"

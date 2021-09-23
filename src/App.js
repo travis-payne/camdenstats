@@ -23,13 +23,11 @@ const App = () => {
 
 
   return (     
-    <Router>
       <div className="App">
       <h2 className="text-center">Camden Capybaras Stats Site</h2>
         <Navigation childProps={childProps} />
         <Routes childProps={childProps} />
       </div>
-    </Router>
   )
 
 }

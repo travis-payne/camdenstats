@@ -1,7 +1,7 @@
 import React, { useState, useEffect, forwardRef } from 'react'
 import '../../css/GameDetails.css'
 import { Col, Container, Row, Form, Button } from 'react-bootstrap'
-import MaterialTable from 'material-table'
+import MaterialTable from '@material-table/core'
 import AddBox from '@material-ui/icons/AddBox'
 import ArrowDownward from '@material-ui/icons/ArrowDownward'
 import Check from '@material-ui/icons/Check'
@@ -52,11 +52,11 @@ const GameDetails = (props) => {
 
   useEffect(() => {
     fetchPlayersInGame()
-  }, []);
+  });
 
   useEffect(() => {
     fetchAllPlayers()
-  }, []);
+  });
 
   const fetchAllPlayers = async () => {
   setPlayers(await GraphQlUtils.fetchPlayers());

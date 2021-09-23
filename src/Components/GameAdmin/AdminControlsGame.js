@@ -20,7 +20,7 @@ import Remove from '@material-ui/icons/Remove'
 import SaveAlt from '@material-ui/icons/SaveAlt'
 import Search from '@material-ui/icons/Search'
 import ViewColumn from '@material-ui/icons/ViewColumn'
-import MaterialTable from 'material-table'
+import MaterialTable from '@material-table/core'
 
 import GraphQlUtils from '../../utils/graphqlUtils.js';
 
