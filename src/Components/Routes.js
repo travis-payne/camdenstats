@@ -4,9 +4,9 @@ import AuthComponent from './AuthComponent.js';
 import ProtectedRoute from './ProtectedRoute.js';
 import ProppedRoute from './ProppedRoute.js';
 import Home from './Home.js';
-import AdminControlsPlayer from './AdminControlsPlayer.js';
-import AdminControlsGame from './AdminControlsGame.js';
-import AdminControlsRecord from './AdminControlsRecord.js';
+import AdminControlsPlayer from './PlayerAdmin/AdminControlsPlayer.js';
+import AdminControlsGame from './GameAdmin/AdminControlsGame.js';
+import AdminControlsRecord from './StatsAdmin/AdminControlsRecord.js';
 
 
 const Routes = ({ childProps }) => (

@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import { Col, Container, Row, Form, Button, Nav } from 'react-bootstrap'
 
-import '../css/RecordStats.css';
+import '../../css/RecordStats.css';
 import RecordGoalModal from './RecordGoalModal.js';
-import GraphQlUtils from '../utils/graphqlUtils.js'
+import GraphQlUtils from '../../utils/graphqlUtils.js'
 
 
 const RecordStats = (props) => {

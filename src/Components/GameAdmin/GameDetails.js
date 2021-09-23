@@ -1,5 +1,5 @@
 import React, { useState, useEffect, forwardRef } from 'react'
-import '../css/GameDetails.css'
+import '../../css/GameDetails.css'
 import { Col, Container, Row, Form, Button } from 'react-bootstrap'
 import MaterialTable from 'material-table'
 import AddBox from '@material-ui/icons/AddBox'
@@ -18,9 +18,9 @@ import SaveAlt from '@material-ui/icons/SaveAlt'
 import Search from '@material-ui/icons/Search'
 import ViewColumn from '@material-ui/icons/ViewColumn';
 
-import GraphQlUtils from '../utils/graphqlUtils.js'
+import GraphQlUtils from '../../utils/graphqlUtils.js'
 import { API, graphqlOperation } from 'aws-amplify';
-import * as mutations from '../graphql/mutations';
+import * as mutations from '../../graphql/mutations';
 
  
 

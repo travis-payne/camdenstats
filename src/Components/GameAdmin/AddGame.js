@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Form, FormControl, Button, Row, Col } from 'react-bootstrap'
-import { createGame } from '../graphql/mutations'
+import { createGame } from '../../graphql/mutations'
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
 import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'

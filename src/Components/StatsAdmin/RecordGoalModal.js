@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
-import GraphQlUtils from '../utils/graphqlUtils.js'
+import GraphQlUtils from '../../utils/graphqlUtils.js'
 import { API, graphqlOperation } from 'aws-amplify'
-import * as mutations from '../graphql/mutations'
+import * as mutations from '../../graphql/mutations'
 import { v4 as uuidv4 } from 'uuid'
 
 const blankState = { player: '' }

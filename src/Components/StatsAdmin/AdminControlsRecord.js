@@ -18,7 +18,7 @@ import Search from '@material-ui/icons/Search'
 import ViewColumn from '@material-ui/icons/ViewColumn'
 import MaterialTable from 'material-table'
 
-import GraphQlUtils from '../utils/graphqlUtils.js'
+import GraphQlUtils from '../../utils/graphqlUtils.js'
 
 import RecordStats from './RecordStats.js'
 
@@ -32,7 +32,21 @@ const AdminControlsRecord = () => {
   }
 
   const getGoals = async (id) => {
-    setGoalData(await GraphQlUtils.getGoalsByGame(id))
+
+    const data = await GraphQlUtils.getGoalsByGame(id)
+    const newData = data.map((item) => {
+      console.log(item);
+      return {
+        id: item.id,
+        assistId: item.assistId,
+        player: item.player.name,
+        position: item.player.position,
+        team: item.player.team,
+        assist: (item.assist && item.assist.player) ?  item.assist.player.name : 'Unassisted'
+
+      }
+    })
+    setGoalData(newData)
   }
 
   const gameSelected = (evt, data) => {
@@ -40,17 +54,21 @@ const AdminControlsRecord = () => {
     getGoals(data.id)
   }
 
-  const renderGoal = (goalData, index) => {
-    console.log(goalData);
-    return (
-      <tr key={index}>
-        <td>{goalData.player.name}</td>
-        <td>{goalData.player.position}</td>
-        <td>{goalData.player.team}</td>
-        <td>{goalData.assist.player ? goalData.assist.player.name : 'Unassisted'}</td>
-      </tr>
-    )
+  const deleteGoal = async (evt, data) => {
+    var deletedIds = [];
+    try {
+       await GraphQlUtils.deleteGoal(data.id,data.assistId);
+      deletedIds.push(data.id);
+    } catch (err) {
+      console.log(err);
+    }
+    var filtered = goalData.filter( (goal) => !deletedIds.includes(goal.id));
+    setGoalData(filtered)
   }
+
+  
+
+
 
   useEffect(() => {
     fetchGames()
@@ -112,18 +130,24 @@ const AdminControlsRecord = () => {
       </Row>
       <Row>
         <Col>
-        <h4>Goals/Assists</h4>
-          <Table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Team</th>
-                <th>Assisted</th>
-              </tr>
-            </thead>
-            <tbody>{goalData.map(renderGoal)}</tbody>
-          </Table>
+        <MaterialTable
+            icons={tableIcons}
+            columns={[
+              { title: 'Name', field: 'player' },
+              { title: 'Position', field: 'position' },
+              { title: 'Team', field: 'team' },
+              { title: 'Assist', field: 'assist' },
+            ]}
+            data={goalData}
+            title="Goals/Assists"
+            actions={[
+              (rowData) => ({
+                tooltip: 'Remove All Selected Users',
+                icon: DeleteOutline,
+                onClick: deleteGoal,
+              }),
+            ]}
+          />
         </Col>
         <Col>
         <h4>Saves</h4>

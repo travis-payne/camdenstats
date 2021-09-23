@@ -1,6 +1,6 @@
 import * as mutations from '../graphql/mutations'
 import { API, graphqlOperation } from 'aws-amplify'
-import { listPlayers, listGames, listPlayerGameJoins, listGoals } from '../graphql/queries'
+import { listPlayers, listGames, listPlayerGameJoins, listGoals, listAssists } from '../graphql/queries'
 import { getGameCustom, listGoalsCustom } from '../graphql/customqueries'
 
 class GraphQlUtils {
@@ -51,6 +51,53 @@ class GraphQlUtils {
   }
 
   static deletePlayer = async (playerId) => {
+    // Delete all assists
+    const assistData = await API.graphql(
+      graphqlOperation(listAssists, {
+        filter: {
+          playerID: {
+            eq: playerId,
+          },
+        },
+      }),
+    )
+    
+    var result = assistData.data.listAssists.items
+    if (result.length > 0) {
+      result.forEach((x) => {
+        const id = {
+          id: x.id,
+        }
+        API.graphql({
+          query: mutations.deleteAssist,
+          variables: { input: id },
+        })
+      })
+    }
+
+    //Delete all goals
+    const goalData = await API.graphql(
+      graphqlOperation(listGoals, {
+        filter: {
+          playerID: {
+            eq: playerId,
+          },
+        },
+      }),
+    )
+    result = goalData.data.listGoals.items
+    if (result.length > 0) {
+      result.forEach((x) => {
+        const id = {
+          id: x.id,
+        }
+        API.graphql({
+          query: mutations.deleteGoal,
+          variables: { input: id },
+        })
+      })
+    }
+
     // First need to remove player-game relations
     const playerData = await API.graphql(
       graphqlOperation(listPlayerGameJoins, {
@@ -62,7 +109,6 @@ class GraphQlUtils {
       }),
     )
     const joins = playerData.data.listPlayerGameJoins.items
-    console.log(joins);
 
     joins.forEach((join) => {
       const id = {
@@ -79,6 +125,26 @@ class GraphQlUtils {
       variables: {
         input: {
           id: playerId,
+        },
+      },
+    })
+  }
+
+  static deleteGoal = async (goalId,assistId) => {
+    // First need to remove assist relations
+    API.graphql({
+      query: mutations.deleteAssist,
+      variables: {
+        input: {
+          id: assistId,
+        },
+      },
+    })
+    API.graphql({
+      query: mutations.deleteGoal,
+      variables: {
+        input: {
+          id: goalId,
         },
       },
     })
@@ -118,6 +184,54 @@ class GraphQlUtils {
 
   
   static deleteGame = async (gameId) => {
+    // Remove all assists
+    const assistData = await API.graphql(
+      graphqlOperation(listAssists, {
+        filter: {
+          gameID: {
+            eq: gameId,
+          },
+        },
+      }),
+    )
+
+    var result = assistData.data.listAssists.items
+    if (result.length > 0) {
+      result.forEach((x) => {
+        const id = {
+          id: x.id,
+        }
+        API.graphql({
+          query: mutations.deleteAssist,
+          variables: { input: id },
+        })
+      })
+    }
+
+    // Remove all goals
+    const goalData = await API.graphql(
+      graphqlOperation(listGoals, {
+        filter: {
+          gameID: {
+            eq: gameId,
+          },
+        },
+      }),
+    )
+
+    result = goalData.data.listGoals.items
+    if (result.length > 0) {
+      result.forEach((x) => {
+        const id = {
+          id: x.id,
+        }
+        API.graphql({
+          query: mutations.deleteGoal,
+          variables: { input: id },
+        })
+      })
+    }
+
     //Remove all players joins from Game
     const joinData = await API.graphql(
       graphqlOperation(listPlayerGameJoins, {
@@ -128,7 +242,7 @@ class GraphQlUtils {
         },
       }),
     )
-    const result = joinData.data.listPlayerGameJoins.items
+    result = joinData.data.listPlayerGameJoins.items
 
     if (result.length > 0) {
       result.forEach((x) => {

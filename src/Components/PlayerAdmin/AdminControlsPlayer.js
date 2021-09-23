@@ -2,8 +2,7 @@ import { useEffect, useState, forwardRef } from 'react'
 
 import {Container, Row } from 'react-bootstrap'
 
-import AddGame from './AddGame.js'
-import GameDetails from './GameDetails.js'
+import AddPlayer from './AddPlayer.js'
 
 import AddBox from '@material-ui/icons/AddBox'
 import ArrowDownward from '@material-ui/icons/ArrowDownward'
@@ -22,41 +21,42 @@ import Search from '@material-ui/icons/Search'
 import ViewColumn from '@material-ui/icons/ViewColumn'
 import MaterialTable from 'material-table'
 
-import GraphQlUtils from '../utils/graphqlUtils.js';
+import GraphQlUtils from '../../utils/graphqlUtils.js';
 
-import '../css/AdminControlsPlayer.css'
+import '../../css/AdminControlsPlayer.css'
 
-const AdminControlsGame = () => {
-  const [games, setGames] = useState([])
+const AdminControlsPlayer = () => {
+  const [players, setPlayers] = useState([])
 
-  const fetchGames = async () => {
-      setGames(await GraphQlUtils.fetchGames());
+  GraphQlUtils.fetchPlayers();
+
+  const fetchPlayers = async () => {
+    setPlayers(await GraphQlUtils.fetchPlayers());
   }
-  
 
-  const deleteGame = async (evt, data) => {
+  const deletePlayer = async (evt, data) => {
     var deletedIds = [];
+    try {
+      await Promise.all(
+        data.map(async (d) => {
+          await GraphQlUtils.deletePlayer(d.id);
 
-    data.map(async (game) => {
-       try{
-        await GraphQlUtils.deleteGame(game.id);
-        deletedIds.push(game.id);
-       } catch(err){
-        console.log(err);
-       }
-       var filtered = games.filter( (game) => !deletedIds.includes(game.id));
-       setGames(filtered)
-    })
-    
-
+          deletedIds.push( d.id);
+        }),
+      )
+    } catch (err) {
+      console.log(err);
+    }
+    var filtered = players.filter( (player) => !deletedIds.includes(player.id));
+    setPlayers(filtered)
   }
 
   const childProps = {
-    onGameAdd: fetchGames,
+    onPlayerAdd: fetchPlayers,
   }
 
   useEffect(() => {
-    fetchGames()
+    fetchPlayers()
   }, [])
 
   const tableIcons = {
@@ -88,10 +88,9 @@ const AdminControlsGame = () => {
   }
 
   return (
-
     <Container fluid>
-        <Row className="gamePanel d-flex justify-content-center">
-          <AddGame props={childProps} />
+        <Row className="playerPanel d-flex justify-content-center">
+          <AddPlayer props={childProps} />
         </Row>
         <hr />
         <Row>
@@ -101,44 +100,23 @@ const AdminControlsGame = () => {
               selection: true,
             }}
             columns={[
-              { title: 'Team', field: 'team' },
-              { title: 'Against', field: 'against' },
-              { title: 'Date', field: 'date', type: 'date' },
-              { title: 'Location', field: 'location'},
-              { title: 'Live', field: 'live', type: 'boolean' },
+              { title: 'Name', field: 'name' },
+              { title: 'Position', field: 'position' },
+              { title: 'Team', field: 'team', type: 'numeric' },
             ]}
-            data={games}
-            title="Games"
+            data={players}
+            title="Player Database"
             actions={[
-                (rowData) => ({
-                  tooltip: 'Remove All Selected Games',
-                  icon: DeleteOutline,
-                  onClick: deleteGame,
-                }),
-              ]}
-              detailPanel= {[
-                {
-                    tooltip: 'Show Name',
-                    render: rowData => {
-                      return (
-                        <div
-                          style={{
-                            fontSize: 100,
-                            textAlign: 'center',
-                            color: 'white',
-                            backgroundColor: '#43A047',
-                          }}
-                        >
-                          <GameDetails props={rowData} />
-                        </div>
-                      )
-                    },
-                  } 
-              ]}
+              (rowData) => ({
+                tooltip: 'Remove All Selected Users',
+                icon: DeleteOutline,
+                onClick: deletePlayer,
+              }),
+            ]}
           />
         </Row>
     </Container>
   );
 }
 
-export default AdminControlsGame;
+export default AdminControlsPlayer
