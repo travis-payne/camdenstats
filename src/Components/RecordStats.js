@@ -40,6 +40,8 @@ const RecordStats = (props) => {
         show={goalModalShow}
         onHide={() => setGoalModalShow(false)}
         players={playersInGame}
+        gameId={props.gameId}
+        onGoal={props.onGoal}
       />
     </Container>
   )

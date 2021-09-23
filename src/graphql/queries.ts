@@ -19,6 +19,27 @@ export const getPlayer = /* GraphQL */ `
         }
         nextToken
       }
+      goals {
+        items {
+          id
+          gameID
+          playerID
+          assistID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      assists {
+        items {
+          id
+          gameID
+          playerID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -37,6 +58,12 @@ export const listPlayers = /* GraphQL */ `
         position
         team
         game {
+          nextToken
+        }
+        goals {
+          nextToken
+        }
+        assists {
           nextToken
         }
         createdAt
@@ -121,8 +148,25 @@ export const getPlayerGameJoin = /* GraphQL */ `
         game {
           nextToken
         }
+        goals {
+          nextToken
+        }
+        assists {
+          nextToken
+        }
         createdAt
         updatedAt
+      }
+      goals {
+        items {
+          id
+          gameID
+          playerID
+          assistID
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -158,6 +202,9 @@ export const listPlayerGameJoins = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        goals {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -169,6 +216,9 @@ export const getGoal = /* GraphQL */ `
   query GetGoal($id: ID!) {
     getGoal(id: $id) {
       id
+      gameID
+      playerID
+      assistID
       player {
         id
         name
@@ -177,18 +227,26 @@ export const getGoal = /* GraphQL */ `
         game {
           nextToken
         }
+        goals {
+          nextToken
+        }
+        assists {
+          nextToken
+        }
         createdAt
         updatedAt
       }
-      game {
+      assist {
         id
-        against
-        date
-        team
-        location
-        live
+        gameID
+        playerID
         player {
-          nextToken
+          id
+          name
+          position
+          team
+          createdAt
+          updatedAt
         }
         createdAt
         updatedAt
@@ -207,6 +265,9 @@ export const listGoals = /* GraphQL */ `
     listGoals(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        gameID
+        playerID
+        assistID
         player {
           id
           name
@@ -215,13 +276,64 @@ export const listGoals = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        game {
+        assist {
           id
-          against
-          date
+          gameID
+          playerID
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getAssist = /* GraphQL */ `
+  query GetAssist($id: ID!) {
+    getAssist(id: $id) {
+      id
+      gameID
+      playerID
+      player {
+        id
+        name
+        position
+        team
+        game {
+          nextToken
+        }
+        goals {
+          nextToken
+        }
+        assists {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listAssists = /* GraphQL */ `
+  query ListAssists(
+    $filter: ModelAssistFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAssists(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        gameID
+        playerID
+        player {
+          id
+          name
+          position
           team
-          location
-          live
           createdAt
           updatedAt
         }

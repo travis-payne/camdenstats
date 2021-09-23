@@ -1,7 +1,7 @@
 import * as mutations from '../graphql/mutations'
 import { API, graphqlOperation } from 'aws-amplify'
-import { listPlayers, listGames, listPlayerGameJoins } from '../graphql/queries'
-import { getGameCustom } from '../graphql/customqueries'
+import { listPlayers, listGames, listPlayerGameJoins, listGoals } from '../graphql/queries'
+import { getGameCustom, listGoalsCustom } from '../graphql/customqueries'
 
 class GraphQlUtils {
   static fetchPlayers = async () => {
@@ -24,10 +24,26 @@ class GraphQlUtils {
     }
   }
 
+  static getGoalsByGame = async(id) => {
+    try {
+      const goalData = await API.graphql(
+        graphqlOperation(listGoalsCustom, {
+          filter: {
+            gameID: {
+              eq: id,
+            },
+          },
+        }),
+      )
+      return goalData.data.listGoals.items;
+    } catch (err) {
+      console.log('err', err)
+    }
+  }
+
   static getPlayersByGame = async (id) => {
     try {
       const gameData = await API.graphql(graphqlOperation(getGameCustom, { id: id }))
-      console.log(gameData.data.getGame)
       return gameData.data.getGame.player.items
     } catch (err) {
       console.log('err', err)
@@ -125,8 +141,6 @@ class GraphQlUtils {
         })
       })
     }
-
-    console.log("hi")
 
     //Remove Game
     API.graphql({

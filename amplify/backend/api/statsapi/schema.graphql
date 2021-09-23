@@ -4,6 +4,8 @@ type Player @model {
   position: String!
   team: Int!
   game:[PlayerGameJoin] @connection(keyName: "byPlayer", fields: ["id"])
+  goals: [Goal] @connection(keyName:"byPlayer",fields:["id"])
+  assists: [Assist] @connection(keyName:"byPlayer",fields:["id"])
 
 }
 
@@ -25,10 +27,26 @@ type PlayerGameJoin @model
   gameID: ID!
   game: Game @connection(fields:["gameID"])
   player: Player @connection(fields:["playerID"])
+  goals: [Goal] @connection(keyName:"byGame",fields:["id"])
+
 }
 
-type Goal @model {
+type Goal @model
+@key(name:"byGame", fields:["gameID"])
+@key(name:"byPlayer", fields:["playerID"]) {
   id: ID!
-  player: Player!
-  game: Game!
+  gameID: ID!
+  playerID: ID!
+  assistID: ID
+  player: Player @connection(fields: ["playerID"])
+  assist: Assist @connection(fields: ["assistID"])
+}
+
+type Assist @model
+@key(name:"byGame", fields:["gameID"])
+@key(name:"byPlayer", fields:["playerID"])  {
+  id: ID
+  gameID: ID
+  playerID: ID
+  player: Player @connection(fields:["playerID"])
 }

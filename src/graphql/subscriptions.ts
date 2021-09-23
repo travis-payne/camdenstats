@@ -19,6 +19,27 @@ export const onCreatePlayer = /* GraphQL */ `
         }
         nextToken
       }
+      goals {
+        items {
+          id
+          gameID
+          playerID
+          assistID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      assists {
+        items {
+          id
+          gameID
+          playerID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -41,6 +62,27 @@ export const onUpdatePlayer = /* GraphQL */ `
         }
         nextToken
       }
+      goals {
+        items {
+          id
+          gameID
+          playerID
+          assistID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      assists {
+        items {
+          id
+          gameID
+          playerID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -58,6 +100,27 @@ export const onDeletePlayer = /* GraphQL */ `
           id
           playerID
           gameID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      goals {
+        items {
+          id
+          gameID
+          playerID
+          assistID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      assists {
+        items {
+          id
+          gameID
+          playerID
           createdAt
           updatedAt
         }
@@ -167,8 +230,25 @@ export const onCreatePlayerGameJoin = /* GraphQL */ `
         game {
           nextToken
         }
+        goals {
+          nextToken
+        }
+        assists {
+          nextToken
+        }
         createdAt
         updatedAt
+      }
+      goals {
+        items {
+          id
+          gameID
+          playerID
+          assistID
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -202,8 +282,25 @@ export const onUpdatePlayerGameJoin = /* GraphQL */ `
         game {
           nextToken
         }
+        goals {
+          nextToken
+        }
+        assists {
+          nextToken
+        }
         createdAt
         updatedAt
+      }
+      goals {
+        items {
+          id
+          gameID
+          playerID
+          assistID
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -237,8 +334,25 @@ export const onDeletePlayerGameJoin = /* GraphQL */ `
         game {
           nextToken
         }
+        goals {
+          nextToken
+        }
+        assists {
+          nextToken
+        }
         createdAt
         updatedAt
+      }
+      goals {
+        items {
+          id
+          gameID
+          playerID
+          assistID
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -249,6 +363,9 @@ export const onCreateGoal = /* GraphQL */ `
   subscription OnCreateGoal {
     onCreateGoal {
       id
+      gameID
+      playerID
+      assistID
       player {
         id
         name
@@ -257,18 +374,26 @@ export const onCreateGoal = /* GraphQL */ `
         game {
           nextToken
         }
+        goals {
+          nextToken
+        }
+        assists {
+          nextToken
+        }
         createdAt
         updatedAt
       }
-      game {
+      assist {
         id
-        against
-        date
-        team
-        location
-        live
+        gameID
+        playerID
         player {
-          nextToken
+          id
+          name
+          position
+          team
+          createdAt
+          updatedAt
         }
         createdAt
         updatedAt
@@ -282,6 +407,9 @@ export const onUpdateGoal = /* GraphQL */ `
   subscription OnUpdateGoal {
     onUpdateGoal {
       id
+      gameID
+      playerID
+      assistID
       player {
         id
         name
@@ -290,18 +418,26 @@ export const onUpdateGoal = /* GraphQL */ `
         game {
           nextToken
         }
+        goals {
+          nextToken
+        }
+        assists {
+          nextToken
+        }
         createdAt
         updatedAt
       }
-      game {
+      assist {
         id
-        against
-        date
-        team
-        location
-        live
+        gameID
+        playerID
         player {
-          nextToken
+          id
+          name
+          position
+          team
+          createdAt
+          updatedAt
         }
         createdAt
         updatedAt
@@ -315,6 +451,9 @@ export const onDeleteGoal = /* GraphQL */ `
   subscription OnDeleteGoal {
     onDeleteGoal {
       id
+      gameID
+      playerID
+      assistID
       player {
         id
         name
@@ -323,17 +462,109 @@ export const onDeleteGoal = /* GraphQL */ `
         game {
           nextToken
         }
+        goals {
+          nextToken
+        }
+        assists {
+          nextToken
+        }
         createdAt
         updatedAt
       }
-      game {
+      assist {
         id
-        against
-        date
-        team
-        location
-        live
+        gameID
+        playerID
         player {
+          id
+          name
+          position
+          team
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateAssist = /* GraphQL */ `
+  subscription OnCreateAssist {
+    onCreateAssist {
+      id
+      gameID
+      playerID
+      player {
+        id
+        name
+        position
+        team
+        game {
+          nextToken
+        }
+        goals {
+          nextToken
+        }
+        assists {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateAssist = /* GraphQL */ `
+  subscription OnUpdateAssist {
+    onUpdateAssist {
+      id
+      gameID
+      playerID
+      player {
+        id
+        name
+        position
+        team
+        game {
+          nextToken
+        }
+        goals {
+          nextToken
+        }
+        assists {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteAssist = /* GraphQL */ `
+  subscription OnDeleteAssist {
+    onDeleteAssist {
+      id
+      gameID
+      playerID
+      player {
+        id
+        name
+        position
+        team
+        game {
+          nextToken
+        }
+        goals {
+          nextToken
+        }
+        assists {
           nextToken
         }
         createdAt

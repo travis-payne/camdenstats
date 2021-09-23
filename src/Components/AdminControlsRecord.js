@@ -1,5 +1,4 @@
-
-import { Col, Container, Row, Form, Button } from 'react-bootstrap'
+import { Col, Container, Row, Form, Button, Table } from 'react-bootstrap'
 import { useEffect, useState, forwardRef } from 'react'
 
 import AddBox from '@material-ui/icons/AddBox'
@@ -23,88 +22,119 @@ import GraphQlUtils from '../utils/graphqlUtils.js'
 
 import RecordStats from './RecordStats.js'
 
-
-
 const AdminControlsRecord = () => {
-    const [games, setGames] = useState([])
-    const [gameId, setGameId] = useState('')
+  const [games, setGames] = useState([])
+  const [gameId, setGameId] = useState('')
+  const [goalData, setGoalData] = useState([])
 
-    const fetchGames = async () => {
-        setGames(await GraphQlUtils.fetchGames());
-    }
+  const fetchGames = async () => {
+    setGames(await GraphQlUtils.fetchGames())
+  }
 
-    const gameSelected = (evt, data) => {
-        setGameId(data.id);
-    }
+  const getGoals = async (id) => {
+    setGoalData(await GraphQlUtils.getGoalsByGame(id))
+  }
 
-    
-    useEffect(() => {
-        fetchGames()
-    }, [])
+  const gameSelected = (evt, data) => {
+    setGameId(data.id)
+    getGoals(data.id)
+  }
 
-
-
-    const tableIcons = {
-        Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
-        Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
-        Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-        Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
-        DetailPanel: forwardRef((props, ref) => (
-          <ChevronRight {...props} ref={ref} />
-        )),
-        Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
-        Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
-        Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
-        FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
-        LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
-        NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
-        PreviousPage: forwardRef((props, ref) => (
-          <ChevronLeft {...props} ref={ref} />
-        )),
-        ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-        Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
-        SortArrow: forwardRef((props, ref) => (
-          <ArrowDownward {...props} ref={ref} />
-        )),
-        ThirdStateCheck: forwardRef((props, ref) => (
-          <Remove {...props} ref={ref} />
-        )),
-        ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
-      }
-
+  const renderGoal = (goalData, index) => {
+    console.log(goalData);
     return (
-        <Container fluid>
-            <Row>
-                <Col>
-                <MaterialTable
+      <tr key={index}>
+        <td>{goalData.player.name}</td>
+        <td>{goalData.player.position}</td>
+        <td>{goalData.player.team}</td>
+        <td>{goalData.assist.player ? goalData.assist.player.name : 'Unassisted'}</td>
+      </tr>
+    )
+  }
+
+  useEffect(() => {
+    fetchGames()
+  }, [])
+
+  const tableIcons = {
+    Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+    Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+    Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+    Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
+    DetailPanel: forwardRef((props, ref) => (
+      <ChevronRight {...props} ref={ref} />
+    )),
+    Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+    Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
+    Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
+    FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
+    LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
+    NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+    PreviousPage: forwardRef((props, ref) => (
+      <ChevronLeft {...props} ref={ref} />
+    )),
+    ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+    Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+    SortArrow: forwardRef((props, ref) => (
+      <ArrowDownward {...props} ref={ref} />
+    )),
+    ThirdStateCheck: forwardRef((props, ref) => (
+      <Remove {...props} ref={ref} />
+    )),
+    ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
+  }
+
+  return (
+    <Container fluid>
+      <Row>
+        <Col>
+          <MaterialTable
             icons={tableIcons}
             columns={[
               { title: 'Team', field: 'team' },
               { title: 'Against', field: 'against' },
               { title: 'Date', field: 'date', type: 'date' },
-              { title: 'Location', field: 'location'},
+              { title: 'Location', field: 'location' },
               { title: 'Live', field: 'live', type: 'boolean' },
             ]}
             data={games}
             title="Games"
             actions={[
-                {
-                  icon: Edit,
-                  tooltip: 'Record Game Stats',
-                  onClick: gameSelected
-                }
-              ]}
+              {
+                icon: Edit,
+                tooltip: 'Record Game Stats',
+                onClick: gameSelected,
+              },
+            ]}
           />
-                </Col>
-                <Col>
-                { gameId !== '' ? <RecordStats gameId={gameId} /> : null }
-                </Col>
-            </Row>
-            <Row>
-                <Col>Goal View</Col>
-            </Row>
-        </Container>
-    )
+        </Col>
+        <Col>{gameId !== '' ? <RecordStats gameId={gameId} onGoal={getGoals} /> : null}</Col>
+      </Row>
+      <Row>
+        <Col>
+        <h4>Goals/Assists</h4>
+          <Table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Team</th>
+                <th>Assisted</th>
+              </tr>
+            </thead>
+            <tbody>{goalData.map(renderGoal)}</tbody>
+          </Table>
+        </Col>
+        <Col>
+        <h4>Saves</h4>
+        </Col>
+        <Col>
+        <h4>Caused Turnovers</h4>
+
+        </Col>
+      </Row>
+    </Container>
+  )
 }
 
 export default AdminControlsRecord

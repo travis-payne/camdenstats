@@ -28,3 +28,41 @@ export const getGameCustom = /* GraphQL */ `
     }
   }
 `;
+
+export const listGoalsCustom = /* GraphQL */ `
+  query ListGoals(
+    $filter: ModelGoalFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listGoals(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        gameID
+        playerID
+        assistID
+        player {
+          id
+          name
+          position
+          team
+          createdAt
+          updatedAt
+        }
+        assist {
+          id
+          gameID
+          playerID
+          player {
+            name
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
