@@ -47,10 +47,7 @@ const AdminControlsGame = () => {
        var filtered = games.filter( (game) => !deletedIds.includes(game.id));
        setGames(filtered)
     })
-    
-
   }
-
   const childProps = {
     onGameAdd: fetchGames,
   }

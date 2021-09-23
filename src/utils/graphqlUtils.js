@@ -35,9 +35,6 @@ class GraphQlUtils {
     }
   }
 
-
-
-
   static fetchGames = async () => {
     try {
       const gameData = await API.graphql(graphqlOperation(listGames))

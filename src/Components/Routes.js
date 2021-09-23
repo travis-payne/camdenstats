@@ -7,11 +7,14 @@ import Home from './Home.js';
 import AdminControlsPlayer from './PlayerAdmin/AdminControlsPlayer.js';
 import AdminControlsGame from './GameAdmin/AdminControlsGame.js';
 import AdminControlsRecord from './StatsAdmin/AdminControlsRecord.js';
+import SearchStats from './SearchStats.js';
 
 
 const Routes = ({ childProps }) => (
     <Switch>
         <ProppedRoute exact path="/" render={Home} />
+        <ProppedRoute exact path="/searchstats" render={SearchStats} />
+
         <ProppedRoute 
             exact 
             path="/auth" 

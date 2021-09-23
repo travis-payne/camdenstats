@@ -39,7 +39,7 @@ const Navigation = ({ childProps }) => {
                 <Nav.Item
                     as={Link}
                     className="btn d-flex align-items-center"
-                    to="/"
+                    to="/searchstats"
                   >
                     Search Stats
                 </Nav.Item>
