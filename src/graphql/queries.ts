@@ -96,6 +96,17 @@ export const getGame = /* GraphQL */ `
       location
       live
       oppositionscore
+      goals {
+        items {
+          id
+          gameID
+          playerID
+          assistID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       player {
         items {
           id
@@ -126,6 +137,9 @@ export const listGames = /* GraphQL */ `
         location
         live
         oppositionscore
+        goals {
+          nextToken
+        }
         player {
           nextToken
         }
@@ -150,6 +164,9 @@ export const getPlayerGameJoin = /* GraphQL */ `
         location
         live
         oppositionscore
+        goals {
+          nextToken
+        }
         player {
           nextToken
         }
@@ -225,6 +242,23 @@ export const getGoal = /* GraphQL */ `
       gameID
       playerID
       assistID
+      game {
+        id
+        against
+        date
+        team
+        location
+        live
+        oppositionscore
+        goals {
+          nextToken
+        }
+        player {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       player {
         id
         name
@@ -277,6 +311,17 @@ export const listGoals = /* GraphQL */ `
         gameID
         playerID
         assistID
+        game {
+          id
+          against
+          date
+          team
+          location
+          live
+          oppositionscore
+          createdAt
+          updatedAt
+        }
         player {
           id
           name

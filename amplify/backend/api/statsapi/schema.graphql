@@ -17,6 +17,7 @@ type Game @model {
   location: String!
   live: Boolean!
   oppositionscore: Int!
+  goals: [Goal] @connection(keyName:"byGame",fields:["id"])
   player: [PlayerGameJoin] @connection(keyName: "byGame", fields: ["id"])
 }
 
@@ -37,6 +38,7 @@ type Goal @model
   gameID: ID!
   playerID: ID!
   assistID: ID
+  game: Game @connection(fields: ["gameID"])
   player: Player @connection(fields: ["playerID"])
   assist: Assist @connection(fields: ["assistID"])
 }

@@ -27,6 +27,7 @@ const AdminControlsRecord = () => {
   const [gameId, setGameId] = useState('')
   const [goalData, setGoalData] = useState([])
   const [turnoverData, setTurnoverData] = useState([])
+  const [liveGame, setLiveGame] = useState(false)
 
   const fetchGames = async () => {
     setGames(await GraphQlUtils.fetchGames())
@@ -64,6 +65,13 @@ const AdminControlsRecord = () => {
   }
 
   const gameSelected = (evt, data) => {
+    fetchGames()
+    var result = games.filter(obj => {
+      return obj.id === data.id
+    })
+    console.log(result)
+
+    setLiveGame(result[0].live)
     setGameId(data.id)
     getGoals(data.id)
     getTurnovers(data.id)
@@ -79,6 +87,9 @@ const AdminControlsRecord = () => {
     }
     var filtered = goalData.filter( (goal) => !deletedIds.includes(goal.id));
     setGoalData(filtered)
+  }
+  const setLive = async (live) => {
+    setLiveGame(live)
   }
 
   const deleteTurnover = async (evt, data) => {
@@ -150,7 +161,7 @@ const AdminControlsRecord = () => {
             ]}
           />
         </Col>
-        <Col>{gameId !== '' ? <RecordStats refreshGames={fetchGames} gameId={gameId} turnoverCaused={getTurnovers} goalScored={getGoals} /> : null}</Col>
+        <Col>{gameId !== '' ? <RecordStats live={liveGame} setLive={setLive} refreshGames={fetchGames} gameId={gameId} turnoverCaused={getTurnovers} goalScored={getGoals} /> : null}</Col>
       </Row>
       <Row>
         <Col>

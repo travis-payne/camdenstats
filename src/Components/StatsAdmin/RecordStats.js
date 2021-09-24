@@ -12,6 +12,7 @@ const RecordStats = (props) => {
   const [gameData, setGameData] = useState({})
   const [playersInGame, setPlayersInGame] = useState([])
 
+
   const recordClickedGoal = async () => {
     await fetchPlayersInGame()
     setGoalModalShow(true)
@@ -76,8 +77,9 @@ const RecordStats = (props) => {
       oppositionscore: gameData.oppositionscore
     }
     const result = await GraphQlUtils.updateGame(clone)
-    setGameData(result.data.updateGame)
+    props.setLive(!gameData.live)
     props.refreshGames()
+    setGameData(result.data.updateGame)
   }
 
   useEffect(() => {
@@ -90,7 +92,8 @@ const RecordStats = (props) => {
 
   return (
     <Container className="d-flex h-100 justify-content-center align-items-center">
-      {gameData.live ? (
+      {console.log(props.live)}
+      {props.live ? (
         <Nav className="flex-column">
           <Nav.Item
             as={Button}

@@ -183,6 +183,17 @@ export const createGame = /* GraphQL */ `
       location
       live
       oppositionscore
+      goals {
+        items {
+          id
+          gameID
+          playerID
+          assistID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       player {
         items {
           id
@@ -211,6 +222,17 @@ export const updateGame = /* GraphQL */ `
       location
       live
       oppositionscore
+      goals {
+        items {
+          id
+          gameID
+          playerID
+          assistID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       player {
         items {
           id
@@ -239,6 +261,17 @@ export const deleteGame = /* GraphQL */ `
       location
       live
       oppositionscore
+      goals {
+        items {
+          id
+          gameID
+          playerID
+          assistID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       player {
         items {
           id
@@ -271,6 +304,9 @@ export const createPlayerGameJoin = /* GraphQL */ `
         location
         live
         oppositionscore
+        goals {
+          nextToken
+        }
         player {
           nextToken
         }
@@ -319,6 +355,9 @@ export const updatePlayerGameJoin = /* GraphQL */ `
         location
         live
         oppositionscore
+        goals {
+          nextToken
+        }
         player {
           nextToken
         }
@@ -367,6 +406,9 @@ export const deletePlayerGameJoin = /* GraphQL */ `
         location
         live
         oppositionscore
+        goals {
+          nextToken
+        }
         player {
           nextToken
         }
@@ -408,6 +450,23 @@ export const createGoal = /* GraphQL */ `
       gameID
       playerID
       assistID
+      game {
+        id
+        against
+        date
+        team
+        location
+        live
+        oppositionscore
+        goals {
+          nextToken
+        }
+        player {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       player {
         id
         name
@@ -458,6 +517,23 @@ export const updateGoal = /* GraphQL */ `
       gameID
       playerID
       assistID
+      game {
+        id
+        against
+        date
+        team
+        location
+        live
+        oppositionscore
+        goals {
+          nextToken
+        }
+        player {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       player {
         id
         name
@@ -508,6 +584,23 @@ export const deleteGoal = /* GraphQL */ `
       gameID
       playerID
       assistID
+      game {
+        id
+        against
+        date
+        team
+        location
+        live
+        oppositionscore
+        goals {
+          nextToken
+        }
+        player {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       player {
         id
         name

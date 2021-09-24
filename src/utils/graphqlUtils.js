@@ -2,7 +2,6 @@ import * as mutations from '../graphql/mutations'
 import { API, graphqlOperation } from 'aws-amplify'
 import {
   listPlayers,
-  listGames,
   listPlayerGameJoins,
   listGoals,
   listAssists,
@@ -14,6 +13,7 @@ import {
   listGoalsCustom,
   listPlayersCustom,
   listCausedTurnoversCustom,
+  listGamesCustom
 } from '../graphql/customqueries'
 
 
@@ -56,8 +56,9 @@ class GraphQlUtils {
 
   static fetchGames = async () => {
     try {
-      const gameData = await API.graphql(graphqlOperation(listGames))
+      const gameData = await API.graphql(graphqlOperation(listGamesCustom))
       const games = gameData.data.listGames.items
+      console.log(games)
       return games
     } catch (err) {
       console.log(err)

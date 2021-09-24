@@ -131,3 +131,35 @@ export const listCausedTurnoversCustom = /* GraphQL */ `
     }
   }
 `;
+
+
+export const listGamesCustom = /* GraphQL */ `
+  query ListGamesCustom(
+    $filter: ModelGameFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listGames(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        against
+        date
+        team
+        location
+        live
+        oppositionscore
+        goals {
+          items{
+            id
+          }
+        }
+        player {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
