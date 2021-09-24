@@ -21,7 +21,8 @@ const AddGame = (props) => {
     e.preventDefault();
     try {
       const game = { ...form }
-      game.live = game.live === 'on' ? true : false
+      game.live = false
+      game.oppositionscore = 0
       await API.graphql(graphqlOperation(createGame, { input: game }))
     } catch (err) {
       console.log('error creating Game:', err);
@@ -81,17 +82,6 @@ const AddGame = (props) => {
             </Form.Select>
           </Form.Group>
         </Col>
-
-        <Col>
-          <Form.Group className="d-flex justify-content-center align-items-center">
-            <Form.Check
-              type="checkbox"
-              label="Live:"
-              onChange={(e) => setField('live', e.target.value)}
-            />
-          </Form.Group>
-        </Col>
-
         <Col className="d-flex justify-content-center align-items-center">
           <Button variant="primary" type="submit">
             Submit

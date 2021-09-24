@@ -7,6 +7,7 @@ import {
   listGoals,
   listAssists,
   listCausedTurnovers,
+  getGame
 } from '../graphql/queries'
 import {
   getGameCustom,
@@ -14,6 +15,7 @@ import {
   listPlayersCustom,
   listCausedTurnoversCustom,
 } from '../graphql/customqueries'
+
 
 class GraphQlUtils {
   static fetchPlayers = async () => {
@@ -94,6 +96,27 @@ class GraphQlUtils {
       return goalData.data.listCausedTurnovers.items
     } catch (err) {
       console.log('err', err)
+    }
+  }
+
+  static getGame = async (id) => {
+    try {
+      const gameData = await API.graphql(
+        graphqlOperation(getGame, { id: id }),
+      )
+      return gameData.data.getGame
+    } catch (err) {
+      console.log('err', err)
+    }
+  }
+
+  static updateGame = async (game) => {
+    try{
+      const result = await API.graphql(graphqlOperation(mutations.updateGame,{input: game}))
+      return result;
+    } catch(err){
+      console.log('err', err)
+
     }
   }
 

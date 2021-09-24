@@ -77,6 +77,7 @@ const SearchStats = () =>{
           { title: 'Goals', field: 'goals', },
           { title: 'Assists', field: 'assists', },
           { title: 'Points', field: 'points', },
+          { title: 'CTOs', field: 'turnovers'}
         ]}
         data={players}
         title="Player Database"

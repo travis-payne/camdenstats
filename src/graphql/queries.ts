@@ -95,6 +95,7 @@ export const getGame = /* GraphQL */ `
       team
       location
       live
+      oppositionscore
       player {
         items {
           id
@@ -124,6 +125,7 @@ export const listGames = /* GraphQL */ `
         team
         location
         live
+        oppositionscore
         player {
           nextToken
         }
@@ -147,6 +149,7 @@ export const getPlayerGameJoin = /* GraphQL */ `
         team
         location
         live
+        oppositionscore
         player {
           nextToken
         }
@@ -196,6 +199,7 @@ export const listPlayerGameJoins = /* GraphQL */ `
           team
           location
           live
+          oppositionscore
           createdAt
           updatedAt
         }

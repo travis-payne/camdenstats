@@ -136,6 +136,7 @@ const AdminControlsRecord = () => {
               { title: 'Against', field: 'against' },
               { title: 'Date', field: 'date', type: 'date' },
               { title: 'Location', field: 'location' },
+              { title: 'Opp Score', field: 'oppositionscore'},
               { title: 'Live', field: 'live', type: 'boolean' },
             ]}
             data={games}
@@ -149,7 +150,7 @@ const AdminControlsRecord = () => {
             ]}
           />
         </Col>
-        <Col>{gameId !== '' ? <RecordStats gameId={gameId} turnoverCaused={getTurnovers} goalScored={getGoals} /> : null}</Col>
+        <Col>{gameId !== '' ? <RecordStats refreshGames={fetchGames} gameId={gameId} turnoverCaused={getTurnovers} goalScored={getGoals} /> : null}</Col>
       </Row>
       <Row>
         <Col>

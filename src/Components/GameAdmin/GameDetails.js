@@ -133,7 +133,7 @@ const GameDetails = (props) => {
   return (
     <div className="gameDetails">
       <h4>
-        {team}s: 10 - {against}: 8{' '}
+        {team}s - {against}
       </h4>
       <Container fluid>
         <Row>

@@ -182,6 +182,7 @@ export const createGame = /* GraphQL */ `
       team
       location
       live
+      oppositionscore
       player {
         items {
           id
@@ -209,6 +210,7 @@ export const updateGame = /* GraphQL */ `
       team
       location
       live
+      oppositionscore
       player {
         items {
           id
@@ -236,6 +238,7 @@ export const deleteGame = /* GraphQL */ `
       team
       location
       live
+      oppositionscore
       player {
         items {
           id
@@ -267,6 +270,7 @@ export const createPlayerGameJoin = /* GraphQL */ `
         team
         location
         live
+        oppositionscore
         player {
           nextToken
         }
@@ -314,6 +318,7 @@ export const updatePlayerGameJoin = /* GraphQL */ `
         team
         location
         live
+        oppositionscore
         player {
           nextToken
         }
@@ -361,6 +366,7 @@ export const deletePlayerGameJoin = /* GraphQL */ `
         team
         location
         live
+        oppositionscore
         player {
           nextToken
         }
