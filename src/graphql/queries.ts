@@ -40,6 +40,16 @@ export const getPlayer = /* GraphQL */ `
         }
         nextToken
       }
+      causedTurnovers {
+        items {
+          id
+          gameID
+          playerID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -64,6 +74,9 @@ export const listPlayers = /* GraphQL */ `
           nextToken
         }
         assists {
+          nextToken
+        }
+        causedTurnovers {
           nextToken
         }
         createdAt
@@ -154,6 +167,9 @@ export const getPlayerGameJoin = /* GraphQL */ `
         assists {
           nextToken
         }
+        causedTurnovers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -217,6 +233,9 @@ export const getGoal = /* GraphQL */ `
           nextToken
         }
         assists {
+          nextToken
+        }
+        causedTurnovers {
           nextToken
         }
         createdAt
@@ -296,6 +315,9 @@ export const getAssist = /* GraphQL */ `
         assists {
           nextToken
         }
+        causedTurnovers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -311,6 +333,63 @@ export const listAssists = /* GraphQL */ `
     $nextToken: String
   ) {
     listAssists(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        gameID
+        playerID
+        player {
+          id
+          name
+          position
+          team
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getCausedTurnover = /* GraphQL */ `
+  query GetCausedTurnover($id: ID!) {
+    getCausedTurnover(id: $id) {
+      id
+      gameID
+      playerID
+      player {
+        id
+        name
+        position
+        team
+        game {
+          nextToken
+        }
+        goals {
+          nextToken
+        }
+        assists {
+          nextToken
+        }
+        causedTurnovers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listCausedTurnovers = /* GraphQL */ `
+  query ListCausedTurnovers(
+    $filter: ModelCausedTurnoverFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCausedTurnovers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         gameID

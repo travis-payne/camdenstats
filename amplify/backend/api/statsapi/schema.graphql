@@ -6,6 +6,7 @@ type Player @model {
   game:[PlayerGameJoin] @connection(keyName: "byPlayer", fields: ["id"])
   goals: [Goal] @connection(keyName:"byPlayer",fields:["id"])
   assists: [Assist] @connection(keyName:"byPlayer",fields:["id"])
+  causedTurnovers: [CausedTurnover] @connection(keyName:"byPlayer",fields:["id"])
 }
 
 type Game @model {
@@ -47,4 +48,14 @@ type Assist @model
   playerID: ID
   player: Player @connection(fields:["playerID"])
 }
+
+type CausedTurnover @model
+@key(name:"byGame", fields:["gameID"])
+@key(name:"byPlayer", fields:["playerID"])  {
+  id: ID
+  gameID: ID
+  playerID: ID
+  player: Player @connection(fields:["playerID"])
+}
+
 

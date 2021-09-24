@@ -315,6 +315,40 @@ export type DeleteAssistInput = {
   id: string,
 };
 
+export type CreateCausedTurnoverInput = {
+  id?: string | null,
+  gameID?: string | null,
+  playerID?: string | null,
+};
+
+export type ModelCausedTurnoverConditionInput = {
+  gameID?: ModelIDInput | null,
+  playerID?: ModelIDInput | null,
+  and?: Array< ModelCausedTurnoverConditionInput | null > | null,
+  or?: Array< ModelCausedTurnoverConditionInput | null > | null,
+  not?: ModelCausedTurnoverConditionInput | null,
+};
+
+export type CausedTurnover = {
+  __typename: "CausedTurnover",
+  id?: string | null,
+  gameID?: string | null,
+  playerID?: string | null,
+  player?: Player | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateCausedTurnoverInput = {
+  id: string,
+  gameID?: string | null,
+  playerID?: string | null,
+};
+
+export type DeleteCausedTurnoverInput = {
+  id: string,
+};
+
 export type ModelGameFilterInput = {
   id?: ModelIDInput | null,
   against?: ModelStringInput | null,
@@ -351,6 +385,21 @@ export type ModelAssistFilterInput = {
   not?: ModelAssistFilterInput | null,
 };
 
+export type ModelCausedTurnoverFilterInput = {
+  id?: ModelIDInput | null,
+  gameID?: ModelIDInput | null,
+  playerID?: ModelIDInput | null,
+  and?: Array< ModelCausedTurnoverFilterInput | null > | null,
+  or?: Array< ModelCausedTurnoverFilterInput | null > | null,
+  not?: ModelCausedTurnoverFilterInput | null,
+};
+
+export type ModelCausedTurnoverConnection = {
+  __typename: "ModelCausedTurnoverConnection",
+  items?:  Array<CausedTurnover | null > | null,
+  nextToken?: string | null,
+};
+
 export type GetGameCustomQueryVariables = {
   id: string,
 };
@@ -373,6 +422,7 @@ export type GetGameCustomQuery = {
         gameID: string,
         player?:  {
           __typename: "Player",
+          id: string,
           name: string,
           position: string,
           team: number,
@@ -430,17 +480,18 @@ export type ListGoalsCustomQuery = {
   } | null,
 };
 
-export type ListPlayersCustomQueryVariables = {
+export type listPlayersCustomQueryVariables = {
   filter?: ModelPlayerFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListPlayersCustomQuery = {
+export type listPlayersCustomQuery = {
   listPlayers?:  {
     __typename: "ModelPlayerConnection",
     items?:  Array< {
       __typename: "Player",
+      id: string,
       name: string,
       position: string,
       team: number,
@@ -462,6 +513,8 @@ export type ListPlayersCustomQuery = {
           id?: string | null,
         } | null > | null,
       } | null,
+      createdAt: string,
+      updatedAt: string,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -1154,6 +1207,117 @@ export type DeleteAssistMutation = {
   } | null,
 };
 
+export type CreateCausedTurnoverMutationVariables = {
+  input: CreateCausedTurnoverInput,
+  condition?: ModelCausedTurnoverConditionInput | null,
+};
+
+export type CreateCausedTurnoverMutation = {
+  createCausedTurnover?:  {
+    __typename: "CausedTurnover",
+    id?: string | null,
+    gameID?: string | null,
+    playerID?: string | null,
+    player?:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateCausedTurnoverMutationVariables = {
+  input: UpdateCausedTurnoverInput,
+  condition?: ModelCausedTurnoverConditionInput | null,
+};
+
+export type UpdateCausedTurnoverMutation = {
+  updateCausedTurnover?:  {
+    __typename: "CausedTurnover",
+    id?: string | null,
+    gameID?: string | null,
+    playerID?: string | null,
+    player?:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteCausedTurnoverMutationVariables = {
+  input: DeleteCausedTurnoverInput,
+  condition?: ModelCausedTurnoverConditionInput | null,
+};
+
+export type DeleteCausedTurnoverMutation = {
+  deleteCausedTurnover?:  {
+    __typename: "CausedTurnover",
+    id?: string | null,
+    gameID?: string | null,
+    playerID?: string | null,
+    player?:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type GetPlayerQueryVariables = {
   id: string,
 };
@@ -1531,6 +1695,72 @@ export type ListAssistsQuery = {
     __typename: "ModelAssistConnection",
     items?:  Array< {
       __typename: "Assist",
+      id?: string | null,
+      gameID?: string | null,
+      playerID?: string | null,
+      player?:  {
+        __typename: "Player",
+        id: string,
+        name: string,
+        position: string,
+        team: number,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetCausedTurnoverQueryVariables = {
+  id: string,
+};
+
+export type GetCausedTurnoverQuery = {
+  getCausedTurnover?:  {
+    __typename: "CausedTurnover",
+    id?: string | null,
+    gameID?: string | null,
+    playerID?: string | null,
+    player?:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListCausedTurnoversQueryVariables = {
+  filter?: ModelCausedTurnoverFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListCausedTurnoversQuery = {
+  listCausedTurnovers?:  {
+    __typename: "ModelCausedTurnoverConnection",
+    items?:  Array< {
+      __typename: "CausedTurnover",
       id?: string | null,
       gameID?: string | null,
       playerID?: string | null,
@@ -2133,6 +2363,102 @@ export type OnUpdateAssistSubscription = {
 export type OnDeleteAssistSubscription = {
   onDeleteAssist?:  {
     __typename: "Assist",
+    id?: string | null,
+    gameID?: string | null,
+    playerID?: string | null,
+    player?:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateCausedTurnoverSubscription = {
+  onCreateCausedTurnover?:  {
+    __typename: "CausedTurnover",
+    id?: string | null,
+    gameID?: string | null,
+    playerID?: string | null,
+    player?:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateCausedTurnoverSubscription = {
+  onUpdateCausedTurnover?:  {
+    __typename: "CausedTurnover",
+    id?: string | null,
+    gameID?: string | null,
+    playerID?: string | null,
+    player?:  {
+      __typename: "Player",
+      id: string,
+      name: string,
+      position: string,
+      team: number,
+      game?:  {
+        __typename: "ModelPlayerGameJoinConnection",
+        nextToken?: string | null,
+      } | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      assists?:  {
+        __typename: "ModelAssistConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteCausedTurnoverSubscription = {
+  onDeleteCausedTurnover?:  {
+    __typename: "CausedTurnover",
     id?: string | null,
     gameID?: string | null,
     playerID?: string | null,

@@ -4,23 +4,26 @@ import '../css/Home.css'
 import GraphQlUtils from '../utils/graphqlUtils.js'
 
 const Home = () => {
-  const [playerData, setPlayerData] = useState([])
   const [goals, setGoals] = useState([])
   const [assists, setAssists] = useState([])
   const [points, setPoints] = useState([])
+  const [turnovers, setTurnovers] = useState([])
 
   const fetchPlayerData = async () => {
     var aggregatedData = await GraphQlUtils.fetchAndAggregatePlayers()
     const goalData = [...aggregatedData];
     const assistData = [...aggregatedData];
     const pointsData = [...aggregatedData];
+    const turnoverData = [...aggregatedData];
     goalData.sort((a,b) => b.goals-a.goals)
     assistData.sort((a,b) => b.assists-a.assists)
     pointsData.sort((a,b) => b.points-a.points)
+    turnoverData.sort((a,b) => b.turnovers-a.turnovers)
 
     setGoals(goalData)
     setAssists(assistData)
     setPoints(pointsData)
+    setTurnovers(turnoverData)
   }
 
   useEffect(() => {
@@ -61,6 +64,18 @@ const Home = () => {
         <td>{player.team}</td>
         <td>{player.position}</td>
         <td><b>{player.points}</b></td>
+      </tr>
+    )
+  }
+
+  const renderTurnovers = (player, index) => {
+    return (
+      <tr>
+        <td>{index + 1}</td>
+        <td>{player.name}</td>
+        <td>{player.team}</td>
+        <td>{player.position}</td>
+        <td><b>{player.turnovers}</b></td>
       </tr>
     )
   }
@@ -117,6 +132,28 @@ const Home = () => {
             <tbody>{points.map(renderPoints)}</tbody>
           </Table>
         </Col>
+      </Row>
+      <Row>
+        <Col>
+        <h4>Caused Turnovers</h4>
+          <Table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Team</th>
+                <th>Position</th>
+                <th>CTOs</th>
+              </tr>
+            </thead>
+            <tbody>{turnovers.map(renderTurnovers)}</tbody>
+          </Table>
+        
+        </Col>
+        {/* <Col>
+        <h4>Coming Soon: Saves</h4>
+        </Col> */}
+
       </Row>
     </Container>
   )

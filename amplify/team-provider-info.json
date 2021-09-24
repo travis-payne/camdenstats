@@ -1,20 +1,26 @@
 {
-  "dev": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-camdenstats-dev-173317-authRole",
-      "UnauthRoleArn": "arn:aws:iam::745591412539:role/amplify-camdenstats-dev-173317-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::745591412539:role/amplify-camdenstats-dev-173317-authRole",
-      "Region": "eu-west-2",
-      "DeploymentBucketName": "amplify-camdenstats-dev-173317-deployment",
-      "UnauthRoleName": "amplify-camdenstats-dev-173317-unauthRole",
-      "StackName": "amplify-camdenstats-dev-173317",
-      "StackId": "arn:aws:cloudformation:eu-west-2:745591412539:stack/amplify-camdenstats-dev-173317/a26d3e50-1af9-11ec-a981-0ab92f9ca8e4",
-      "AmplifyAppId": "d3ufktizz6fywi"
-    },
-    "categories": {
-      "auth": {
-        "camdenstats27b3852c": {}
-      }
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-camdenstats-dev-173317-authRole",
+            "UnauthRoleArn": "arn:aws:iam::745591412539:role/amplify-camdenstats-dev-173317-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::745591412539:role/amplify-camdenstats-dev-173317-authRole",
+            "Region": "eu-west-2",
+            "DeploymentBucketName": "amplify-camdenstats-dev-173317-deployment",
+            "UnauthRoleName": "amplify-camdenstats-dev-173317-unauthRole",
+            "StackName": "amplify-camdenstats-dev-173317",
+            "StackId": "arn:aws:cloudformation:eu-west-2:745591412539:stack/amplify-camdenstats-dev-173317/a26d3e50-1af9-11ec-a981-0ab92f9ca8e4",
+            "AmplifyAppId": "d3ufktizz6fywi"
+        },
+        "categories": {
+            "auth": {
+                "camdenstats27b3852c": {}
+            },
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d3ufktizz6fywi",
+                    "type": "manual"
+                }
+            }
+        }
     }
-  }
 }

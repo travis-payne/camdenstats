@@ -43,6 +43,16 @@ export const createPlayer = /* GraphQL */ `
         }
         nextToken
       }
+      causedTurnovers {
+        items {
+          id
+          gameID
+          playerID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -89,6 +99,16 @@ export const updatePlayer = /* GraphQL */ `
         }
         nextToken
       }
+      causedTurnovers {
+        items {
+          id
+          gameID
+          playerID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -126,6 +146,16 @@ export const deletePlayer = /* GraphQL */ `
         nextToken
       }
       assists {
+        items {
+          id
+          gameID
+          playerID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      causedTurnovers {
         items {
           id
           gameID
@@ -257,6 +287,9 @@ export const createPlayerGameJoin = /* GraphQL */ `
         assists {
           nextToken
         }
+        causedTurnovers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -299,6 +332,9 @@ export const updatePlayerGameJoin = /* GraphQL */ `
           nextToken
         }
         assists {
+          nextToken
+        }
+        causedTurnovers {
           nextToken
         }
         createdAt
@@ -345,6 +381,9 @@ export const deletePlayerGameJoin = /* GraphQL */ `
         assists {
           nextToken
         }
+        causedTurnovers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -375,6 +414,9 @@ export const createGoal = /* GraphQL */ `
           nextToken
         }
         assists {
+          nextToken
+        }
+        causedTurnovers {
           nextToken
         }
         createdAt
@@ -424,6 +466,9 @@ export const updateGoal = /* GraphQL */ `
         assists {
           nextToken
         }
+        causedTurnovers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -469,6 +514,9 @@ export const deleteGoal = /* GraphQL */ `
           nextToken
         }
         assists {
+          nextToken
+        }
+        causedTurnovers {
           nextToken
         }
         createdAt
@@ -517,6 +565,9 @@ export const createAssist = /* GraphQL */ `
         assists {
           nextToken
         }
+        causedTurnovers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -548,6 +599,9 @@ export const updateAssist = /* GraphQL */ `
         assists {
           nextToken
         }
+        causedTurnovers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -577,6 +631,111 @@ export const deleteAssist = /* GraphQL */ `
           nextToken
         }
         assists {
+          nextToken
+        }
+        causedTurnovers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createCausedTurnover = /* GraphQL */ `
+  mutation CreateCausedTurnover(
+    $input: CreateCausedTurnoverInput!
+    $condition: ModelCausedTurnoverConditionInput
+  ) {
+    createCausedTurnover(input: $input, condition: $condition) {
+      id
+      gameID
+      playerID
+      player {
+        id
+        name
+        position
+        team
+        game {
+          nextToken
+        }
+        goals {
+          nextToken
+        }
+        assists {
+          nextToken
+        }
+        causedTurnovers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCausedTurnover = /* GraphQL */ `
+  mutation UpdateCausedTurnover(
+    $input: UpdateCausedTurnoverInput!
+    $condition: ModelCausedTurnoverConditionInput
+  ) {
+    updateCausedTurnover(input: $input, condition: $condition) {
+      id
+      gameID
+      playerID
+      player {
+        id
+        name
+        position
+        team
+        game {
+          nextToken
+        }
+        goals {
+          nextToken
+        }
+        assists {
+          nextToken
+        }
+        causedTurnovers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCausedTurnover = /* GraphQL */ `
+  mutation DeleteCausedTurnover(
+    $input: DeleteCausedTurnoverInput!
+    $condition: ModelCausedTurnoverConditionInput
+  ) {
+    deleteCausedTurnover(input: $input, condition: $condition) {
+      id
+      gameID
+      playerID
+      player {
+        id
+        name
+        position
+        team
+        game {
+          nextToken
+        }
+        goals {
+          nextToken
+        }
+        assists {
+          nextToken
+        }
+        causedTurnovers {
           nextToken
         }
         createdAt

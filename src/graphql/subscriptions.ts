@@ -40,6 +40,16 @@ export const onCreatePlayer = /* GraphQL */ `
         }
         nextToken
       }
+      causedTurnovers {
+        items {
+          id
+          gameID
+          playerID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -83,6 +93,16 @@ export const onUpdatePlayer = /* GraphQL */ `
         }
         nextToken
       }
+      causedTurnovers {
+        items {
+          id
+          gameID
+          playerID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -117,6 +137,16 @@ export const onDeletePlayer = /* GraphQL */ `
         nextToken
       }
       assists {
+        items {
+          id
+          gameID
+          playerID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      causedTurnovers {
         items {
           id
           gameID
@@ -236,6 +266,9 @@ export const onCreatePlayerGameJoin = /* GraphQL */ `
         assists {
           nextToken
         }
+        causedTurnovers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -275,6 +308,9 @@ export const onUpdatePlayerGameJoin = /* GraphQL */ `
           nextToken
         }
         assists {
+          nextToken
+        }
+        causedTurnovers {
           nextToken
         }
         createdAt
@@ -318,6 +354,9 @@ export const onDeletePlayerGameJoin = /* GraphQL */ `
         assists {
           nextToken
         }
+        causedTurnovers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -345,6 +384,9 @@ export const onCreateGoal = /* GraphQL */ `
           nextToken
         }
         assists {
+          nextToken
+        }
+        causedTurnovers {
           nextToken
         }
         createdAt
@@ -391,6 +433,9 @@ export const onUpdateGoal = /* GraphQL */ `
         assists {
           nextToken
         }
+        causedTurnovers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -433,6 +478,9 @@ export const onDeleteGoal = /* GraphQL */ `
           nextToken
         }
         assists {
+          nextToken
+        }
+        causedTurnovers {
           nextToken
         }
         createdAt
@@ -478,6 +526,9 @@ export const onCreateAssist = /* GraphQL */ `
         assists {
           nextToken
         }
+        causedTurnovers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -506,6 +557,9 @@ export const onUpdateAssist = /* GraphQL */ `
         assists {
           nextToken
         }
+        causedTurnovers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -532,6 +586,102 @@ export const onDeleteAssist = /* GraphQL */ `
           nextToken
         }
         assists {
+          nextToken
+        }
+        causedTurnovers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateCausedTurnover = /* GraphQL */ `
+  subscription OnCreateCausedTurnover {
+    onCreateCausedTurnover {
+      id
+      gameID
+      playerID
+      player {
+        id
+        name
+        position
+        team
+        game {
+          nextToken
+        }
+        goals {
+          nextToken
+        }
+        assists {
+          nextToken
+        }
+        causedTurnovers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCausedTurnover = /* GraphQL */ `
+  subscription OnUpdateCausedTurnover {
+    onUpdateCausedTurnover {
+      id
+      gameID
+      playerID
+      player {
+        id
+        name
+        position
+        team
+        game {
+          nextToken
+        }
+        goals {
+          nextToken
+        }
+        assists {
+          nextToken
+        }
+        causedTurnovers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCausedTurnover = /* GraphQL */ `
+  subscription OnDeleteCausedTurnover {
+    onDeleteCausedTurnover {
+      id
+      gameID
+      playerID
+      player {
+        id
+        name
+        position
+        team
+        game {
+          nextToken
+        }
+        goals {
+          nextToken
+        }
+        assists {
+          nextToken
+        }
+        causedTurnovers {
           nextToken
         }
         createdAt

@@ -92,6 +92,38 @@ export const listPlayersCustom = /* GraphQL */ `
             id
           }
         }
+        causedTurnovers {
+          items{
+            id
+          }
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+
+export const listCausedTurnoversCustom = /* GraphQL */ `
+  query ListCausedTurnovers(
+    $filter: ModelCausedTurnoverFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCausedTurnovers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        gameID
+        playerID
+        player {
+          id
+          name
+          position
+          team
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }

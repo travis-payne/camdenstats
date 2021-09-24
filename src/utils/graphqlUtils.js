@@ -1,7 +1,19 @@
 import * as mutations from '../graphql/mutations'
 import { API, graphqlOperation } from 'aws-amplify'
-import { listPlayers, listGames, listPlayerGameJoins, listGoals, listAssists, getGame } from '../graphql/queries'
-import { getGameCustom, listGoalsCustom,listPlayersCustom } from '../graphql/customqueries'
+import {
+  listPlayers,
+  listGames,
+  listPlayerGameJoins,
+  listGoals,
+  listAssists,
+  listCausedTurnovers,
+} from '../graphql/queries'
+import {
+  getGameCustom,
+  listGoalsCustom,
+  listPlayersCustom,
+  listCausedTurnoversCustom,
+} from '../graphql/customqueries'
 
 class GraphQlUtils {
   static fetchPlayers = async () => {
@@ -18,16 +30,21 @@ class GraphQlUtils {
     try {
       const playerData = await API.graphql(graphqlOperation(listPlayersCustom))
       const players = playerData.data.listPlayers.items
+      console.log(players)
       const aggregatedData = players.map((player) => {
-          return {
-            name: player.name,
-            position: player.position,
-            team: player.team,
-            goals: player.goals ? player.goals.items.length : 0,
-            assists: player.assists ? player.assists.items.length : 0,
-            points: ( player.goals ? player.goals.items.length : 0 ) + (player.assists ? player.assists.items.length : 0)
-          }
-
+        return {
+          name: player.name,
+          position: player.position,
+          team: player.team,
+          goals: player.goals ? player.goals.items.length : 0,
+          assists: player.assists ? player.assists.items.length : 0,
+          points:
+            (player.goals ? player.goals.items.length : 0) +
+            (player.assists ? player.assists.items.length : 0),
+          turnovers: player.causedTurnovers
+            ? player.causedTurnovers.items.length
+            : 0,
+        }
       })
       return aggregatedData
     } catch (err) {
@@ -45,7 +62,7 @@ class GraphQlUtils {
     }
   }
 
-  static getGoalsByGame = async(id) => {
+  static getGoalsByGame = async (id) => {
     try {
       const goalData = await API.graphql(
         graphqlOperation(listGoalsCustom, {
@@ -56,7 +73,25 @@ class GraphQlUtils {
           },
         }),
       )
-      return goalData.data.listGoals.items;
+      return goalData.data.listGoals.items
+    } catch (err) {
+      console.log('err', err)
+    }
+  }
+
+  static getTurnoversByGame = async (id) => {
+    try {
+      const goalData = await API.graphql(
+        graphqlOperation(listCausedTurnoversCustom, {
+          filter: {
+            gameID: {
+              eq: id,
+            },
+          },
+        }),
+      )
+      console.log(goalData)
+      return goalData.data.listCausedTurnovers.items
     } catch (err) {
       console.log('err', err)
     }
@@ -64,7 +99,9 @@ class GraphQlUtils {
 
   static getPlayersByGame = async (id) => {
     try {
-      const gameData = await API.graphql(graphqlOperation(getGameCustom, { id: id }))
+      const gameData = await API.graphql(
+        graphqlOperation(getGameCustom, { id: id }),
+      )
       return gameData.data.getGame.player.items
     } catch (err) {
       console.log('err', err)
@@ -82,7 +119,7 @@ class GraphQlUtils {
         },
       }),
     )
-    
+
     var result = assistData.data.listAssists.items
     if (result.length > 0) {
       result.forEach((x) => {
@@ -114,6 +151,29 @@ class GraphQlUtils {
         }
         API.graphql({
           query: mutations.deleteGoal,
+          variables: { input: id },
+        })
+      })
+    }
+
+    // Delete all caused turnovers
+    const turnoverData = await API.graphql(
+      graphqlOperation(listCausedTurnovers, {
+        filter: {
+          playerID: {
+            eq: playerId,
+          },
+        },
+      }),
+    )
+    result = turnoverData.data.listCausedTurnovers.items
+    if (result.length > 0) {
+      result.forEach((x) => {
+        const id = {
+          id: x.id,
+        }
+        API.graphql({
+          query: mutations.deleteCausedTurnover,
           variables: { input: id },
         })
       })
@@ -151,7 +211,7 @@ class GraphQlUtils {
     })
   }
 
-  static deleteGoal = async (goalId,assistId) => {
+  static deleteGoal = async (goalId, assistId) => {
     // First need to remove assist relations
     API.graphql({
       query: mutations.deleteAssist,
@@ -166,6 +226,17 @@ class GraphQlUtils {
       variables: {
         input: {
           id: goalId,
+        },
+      },
+    })
+  }
+
+  static deleteCausedTurnover = async (turnoverId) => {
+    API.graphql({
+      query: mutations.deleteCausedTurnover,
+      variables: {
+        input: {
+          id: turnoverId,
         },
       },
     })
@@ -201,9 +272,86 @@ class GraphQlUtils {
     } catch (err) {
       console.log('err', err)
     }
+    // Delete all assists
+    const assistData = await API.graphql(
+      graphqlOperation(listAssists, {
+        filter: {
+          playerID: {
+            eq: playerId,
+          },
+          gameID: {
+            eq: gameId,
+          },
+        },
+      }),
+    )
+
+    var result = assistData.data.listAssists.items
+    if (result.length > 0) {
+      result.forEach((x) => {
+        const id = {
+          id: x.id,
+        }
+        API.graphql({
+          query: mutations.deleteAssist,
+          variables: { input: id },
+        })
+      })
+    }
+
+    //Delete all goals
+    const goalData = await API.graphql(
+      graphqlOperation(listGoals, {
+        filter: {
+          playerID: {
+            eq: playerId,
+          },
+          gameID: {
+            eq: gameId,
+          },
+        },
+      }),
+    )
+    result = goalData.data.listGoals.items
+    if (result.length > 0) {
+      result.forEach((x) => {
+        const id = {
+          id: x.id,
+        }
+        API.graphql({
+          query: mutations.deleteGoal,
+          variables: { input: id },
+        })
+      })
+    }
+
+    // Delete all caused turnovers
+    const turnoverData = await API.graphql(
+      graphqlOperation(listCausedTurnovers, {
+        filter: {
+          playerID: {
+            eq: playerId,
+          },
+          gameID: {
+            eq: gameId,
+          },
+        },
+      }),
+    )
+    result = turnoverData.data.listCausedTurnovers.items
+    if (result.length > 0) {
+      result.forEach((x) => {
+        const id = {
+          id: x.id,
+        }
+        API.graphql({
+          query: mutations.deleteCausedTurnover,
+          variables: { input: id },
+        })
+      })
+    }
   }
 
-  
   static deleteGame = async (gameId) => {
     // Remove all assists
     const assistData = await API.graphql(
@@ -253,6 +401,29 @@ class GraphQlUtils {
       })
     }
 
+    // Delete all caused turnovers
+    const turnoverData = await API.graphql(
+      graphqlOperation(listCausedTurnovers, {
+        filter: {
+          gameID: {
+            eq: gameId,
+          },
+        },
+      }),
+    )
+    result = turnoverData.data.listCausedTurnovers.items
+    if (result.length > 0) {
+      result.forEach((x) => {
+        const id = {
+          id: x.id,
+        }
+        API.graphql({
+          query: mutations.deleteCausedTurnover,
+          variables: { input: id },
+        })
+      })
+    }
+
     //Remove all players joins from Game
     const joinData = await API.graphql(
       graphqlOperation(listPlayerGameJoins, {
@@ -286,9 +457,6 @@ class GraphQlUtils {
         },
       },
     })
-
-
-
   }
 }
 

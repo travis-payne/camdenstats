@@ -26,16 +26,15 @@ const AdminControlsRecord = () => {
   const [games, setGames] = useState([])
   const [gameId, setGameId] = useState('')
   const [goalData, setGoalData] = useState([])
+  const [turnoverData, setTurnoverData] = useState([])
 
   const fetchGames = async () => {
     setGames(await GraphQlUtils.fetchGames())
   }
 
   const getGoals = async (id) => {
-
     const data = await GraphQlUtils.getGoalsByGame(id)
     const newData = data.map((item) => {
-      console.log(item)
       return {
         id: item.id,
         assistId: item.assistID,
@@ -49,9 +48,25 @@ const AdminControlsRecord = () => {
     setGoalData(newData)
   }
 
+  const getTurnovers = async (id) => {
+    const data = await GraphQlUtils.getTurnoversByGame(id)
+    const newData = data.map((item) => {
+      return {
+        id: item.id,
+        assistId: item.assistID,
+        player: item.player.name,
+        position: item.player.position,
+        team: item.player.team,
+        assist: (item.assist && item.assist.player) ?  item.assist.player.name : 'Unassisted'
+      }
+    })
+    setTurnoverData(newData)
+  }
+
   const gameSelected = (evt, data) => {
     setGameId(data.id)
     getGoals(data.id)
+    getTurnovers(data.id)
   }
 
   const deleteGoal = async (evt, data) => {
@@ -64,6 +79,18 @@ const AdminControlsRecord = () => {
     }
     var filtered = goalData.filter( (goal) => !deletedIds.includes(goal.id));
     setGoalData(filtered)
+  }
+
+  const deleteTurnover = async (evt, data) => {
+    var deletedIds = [];
+    try {
+       await GraphQlUtils.deleteCausedTurnover(data.id,data.assistId);
+      deletedIds.push(data.id);
+    } catch (err) {
+      console.log(err);
+    }
+    var filtered = turnoverData.filter( (goal) => !deletedIds.includes(goal.id));
+    setTurnoverData(filtered)
   }
 
   useEffect(() => {
@@ -122,7 +149,7 @@ const AdminControlsRecord = () => {
             ]}
           />
         </Col>
-        <Col>{gameId !== '' ? <RecordStats gameId={gameId} goalScored={getGoals} /> : null}</Col>
+        <Col>{gameId !== '' ? <RecordStats gameId={gameId} turnoverCaused={getTurnovers} goalScored={getGoals} /> : null}</Col>
       </Row>
       <Row>
         <Col>
@@ -138,7 +165,7 @@ const AdminControlsRecord = () => {
             title="Goals/Assists"
             actions={[
               (rowData) => ({
-                tooltip: 'Remove All Selected Users',
+                tooltip: 'Remove All Selected Goals',
                 icon: DeleteOutline,
                 onClick: deleteGoal,
               }),
@@ -146,11 +173,27 @@ const AdminControlsRecord = () => {
           />
         </Col>
         <Col>
-        <h4>Saves</h4>
+        <MaterialTable
+            icons={tableIcons}
+            columns={[
+              { title: 'Name', field: 'player' },
+              { title: 'Position', field: 'position' },
+              { title: 'Team', field: 'team' }
+            ]}
+            data={turnoverData}
+            title="Caused Turnovers"
+            actions={[
+              (rowData) => ({
+                tooltip: 'Remove All Selected Turnovers',
+                icon: DeleteOutline,
+                onClick: deleteTurnover,
+              }),
+            ]}
+          />
         </Col>
         <Col>
-        <h4>Caused Turnovers</h4>
 
+        <h4>Saves</h4>
         </Col>
       </Row>
     </Container>
