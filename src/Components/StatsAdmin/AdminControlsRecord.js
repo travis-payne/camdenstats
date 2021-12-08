@@ -69,8 +69,6 @@ const AdminControlsRecord = () => {
     var result = games.filter(obj => {
       return obj.id === data.id
     })
-    console.log(result)
-
     setLiveGame(result[0].live)
     setGameId(data.id)
     getGoals(data.id)
@@ -88,8 +86,14 @@ const AdminControlsRecord = () => {
     var filtered = goalData.filter( (goal) => !deletedIds.includes(goal.id));
     setGoalData(filtered)
   }
-  const setLive = async (live) => {
+
+  const setLive = async (live,id) => {
+    setGameId(id)
+    fetchGames()
     setLiveGame(live)
+
+    getGoals(id)
+    getTurnovers(id)
   }
 
   const deleteTurnover = async (evt, data) => {
@@ -161,7 +165,9 @@ const AdminControlsRecord = () => {
             ]}
           />
         </Col>
-        <Col>{gameId !== '' ? <RecordStats live={liveGame} setLive={setLive} refreshGames={fetchGames} gameId={gameId} turnoverCaused={getTurnovers} goalScored={getGoals} /> : null}</Col>
+        <Col>
+        
+        {gameId !== '' ? <RecordStats live={liveGame} setLive={setLive} refreshGames={fetchGames} gameId={gameId} turnoverCaused={getTurnovers} goalScored={getGoals} /> : null}</Col>
       </Row>
       <Row>
         <Col>

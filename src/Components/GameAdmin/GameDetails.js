@@ -50,7 +50,6 @@ const GameDetails = (props) => {
         return
       }
         result.forEach( (p) => {
-          console.log(p.player)
           playerArray.push(p.player);
         });
 

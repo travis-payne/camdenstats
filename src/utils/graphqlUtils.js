@@ -32,7 +32,6 @@ class GraphQlUtils {
     try {
       const playerData = await API.graphql(graphqlOperation(listPlayersCustom))
       const players = playerData.data.listPlayers.items
-      console.log(players)
       const aggregatedData = players.map((player) => {
         return {
           name: player.name,
@@ -58,7 +57,6 @@ class GraphQlUtils {
     try {
       const gameData = await API.graphql(graphqlOperation(listGamesCustom))
       const games = gameData.data.listGames.items
-      console.log(games)
       return games
     } catch (err) {
       console.log(err)
@@ -93,7 +91,6 @@ class GraphQlUtils {
           },
         }),
       )
-      console.log(goalData)
       return goalData.data.listCausedTurnovers.items
     } catch (err) {
       console.log('err', err)

@@ -10,7 +10,6 @@ const LiveScoreCard = (props) => {
       style={{ width: '18rem' }}
       className="mb-2 liveCard"
     >
-        {console.log(props)}
     <Card.Header> <img className='liveLogo' src={capslogo}></img></Card.Header>
       <Card.Body>
         <Card.Text>

@@ -2,12 +2,11 @@ import React, { useState } from 'react'
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
 import logo from '../media/capslogo.png'
 import { Link } from 'react-router-dom'
-import { AmplifySignOut, AmplifyAuthenticator } from '@aws-amplify/ui-react'
+import { AmplifySignOut } from '@aws-amplify/ui-react'
 import '../css/Navigation.css'
 
 const Navigation = ({ childProps }) => {
   const handleStateChange = (state) => {
-    console.log(state)
     if (state === 'signedout') {
       childProps.onUserSignOut()
     }
