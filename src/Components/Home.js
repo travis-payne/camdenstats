@@ -1,48 +1,44 @@
-import { useEffect, useState } from 'react'
-import { Container, Row, Col, Table } from 'react-bootstrap'
-import '../css/Home.css'
-import GraphQlUtils from '../utils/graphqlUtils.js'
-import Carousel from '@brainhubeu/react-carousel'
-import '@brainhubeu/react-carousel/lib/style.css'
-import LiveScoreCard from './LiveScoreCard.js'
+import { useEffect, useState } from "react";
+import { Container, Row, Col, Table } from "react-bootstrap";
+import "../css/Home.css";
+import GraphQlUtils from "../utils/graphqlUtils.js";
+import LiveScoreCard from "./LiveScoreCard.js";
 
 const Home = () => {
-  const [goals, setGoals] = useState([])
-  const [assists, setAssists] = useState([])
-  const [points, setPoints] = useState([])
-  const [turnovers, setTurnovers] = useState([])
-  const [games, setGames] = useState([])
-
+  const [goals, setGoals] = useState([]);
+  const [assists, setAssists] = useState([]);
+  const [points, setPoints] = useState([]);
+  const [turnovers, setTurnovers] = useState([]);
+  const [games, setGames] = useState([]);
 
   const fetchPlayerData = async () => {
-    var aggregatedData = await GraphQlUtils.fetchAndAggregatePlayers()
-    const goalData = [...aggregatedData]
-    const assistData = [...aggregatedData]
-    const pointsData = [...aggregatedData]
-    const turnoverData = [...aggregatedData]
-    goalData.sort((a, b) => b.goals - a.goals)
-    assistData.sort((a, b) => b.assists - a.assists)
-    pointsData.sort((a, b) => b.points - a.points)
-    turnoverData.sort((a, b) => b.turnovers - a.turnovers)
+    var aggregatedData = await GraphQlUtils.fetchAndAggregatePlayers();
+    const goalData = [...aggregatedData];
+    const assistData = [...aggregatedData];
+    const pointsData = [...aggregatedData];
+    const turnoverData = [...aggregatedData];
+    goalData.sort((a, b) => b.goals - a.goals);
+    assistData.sort((a, b) => b.assists - a.assists);
+    pointsData.sort((a, b) => b.points - a.points);
+    turnoverData.sort((a, b) => b.turnovers - a.turnovers);
 
-    setGoals(goalData.slice(0, 5))
-    setAssists(assistData.slice(0, 5))
-    setPoints(pointsData.slice(0, 5))
-    setTurnovers(turnoverData.slice(0, 5))
-  }
+    setGoals(goalData.slice(0, 5));
+    setAssists(assistData.slice(0, 5));
+    setPoints(pointsData.slice(0, 5));
+    setTurnovers(turnoverData.slice(0, 5));
+  };
 
   const fetchGames = async () => {
-    setGames(await GraphQlUtils.fetchGames())
-  }
-
-
-  useEffect(() => {
-    fetchPlayerData()
-  }, [])
+    setGames(await GraphQlUtils.fetchGames());
+  };
 
   useEffect(() => {
-    fetchGames()
-  }, [])
+    fetchPlayerData();
+  }, []);
+
+  useEffect(() => {
+    fetchGames();
+  }, []);
 
   const renderGoals = (player, index) => {
     return (
@@ -55,8 +51,8 @@ const Home = () => {
           <b>{player.goals}</b>
         </td>
       </tr>
-    )
-  }
+    );
+  };
 
   const renderAssists = (player, index) => {
     return (
@@ -69,8 +65,8 @@ const Home = () => {
           <b>{player.assists}</b>
         </td>
       </tr>
-    )
-  }
+    );
+  };
 
   const renderPoints = (player, index) => {
     return (
@@ -83,8 +79,8 @@ const Home = () => {
           <b>{player.points}</b>
         </td>
       </tr>
-    )
-  }
+    );
+  };
 
   const renderTurnovers = (player, index) => {
     return (
@@ -97,28 +93,21 @@ const Home = () => {
           <b>{player.turnovers}</b>
         </td>
       </tr>
-    )
-  }
+    );
+  };
 
   return (
     <Container className="home text-center">
       <h4> Live Scores </h4>
       <Row>
-        <Carousel
-          plugins={[
-            'infinite',
-            'arrows',
-          ]}
-        >
-        
+        {/* <Carousel plugins={["infinite", "arrows"]}>
           {games.map((game) => {
-            if(game.live){
-              return  <LiveScoreCard gameData={game} />
+            if (game.live) {
+              return <LiveScoreCard gameData={game} />;
             }
-            return null
+            return null;
           })}
-
-        </Carousel>
+        </Carousel> */}
       </Row>
       <br />
       <h2 className="d-flex justify-content-center">Points Leaders</h2>
@@ -189,7 +178,7 @@ const Home = () => {
         </Col>
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
