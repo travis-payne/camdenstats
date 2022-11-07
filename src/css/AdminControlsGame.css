@@ -1,12 +1,13 @@
-.gameControls{
-    width: 50%;
+.gameControls {
+  width: 50%;
 }
 
 .gamePanel {
-    width:100%;
+  width: 100%;
 }
-/* 
-.playerForm button{
 
-    height:50%;
-} */
+@media (max-width: 630px) {
+  .row .gameForm {
+    display: inline !important;
+  }
+}

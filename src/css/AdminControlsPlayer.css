@@ -1,12 +1,13 @@
-.playerControls{
-    width: 50%;
+.playerControls {
+  width: 50%;
 }
 
 .playerPanel {
-    width:100%;
+  width: 100%;
 }
-/* 
-.playerForm button{
 
-    height:50%;
-} */
+@media (max-width: 600px) {
+  .row .playerForm {
+    display: inline !important;
+  }
+}

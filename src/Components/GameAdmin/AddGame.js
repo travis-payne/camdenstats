@@ -1,46 +1,47 @@
-import React, { useEffect, useState } from 'react'
-import { Form, FormControl, Button, Row, Col } from 'react-bootstrap'
-import { createGame } from '../../graphql/mutations'
-import Amplify, { API, graphqlOperation } from 'aws-amplify'
-import 'react-datepicker/dist/react-datepicker.css'
-import DatePicker from 'react-datepicker'
+import React, { useEffect, useState } from "react";
+import { Form, FormControl, Button, Row, Col } from "react-bootstrap";
+import { createGame } from "../../graphql/mutations";
+import Amplify, { API, graphqlOperation } from "aws-amplify";
+import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker";
+import "../../css/AdminControlsGame.css";
 
-const blankState = { team: '', against: '', date: '', live: false }
+const blankState = { team: "", against: "", date: "", live: false };
 
 const AddGame = (props) => {
-  const [form, setForm] = useState()
+  const [form, setForm] = useState();
 
   const setField = (field, value) => {
     setForm({
       ...form,
       [field]: value,
-    })
-  }
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const game = { ...form }
-      game.live = false
-      game.oppositionscore = 0
-      await API.graphql(graphqlOperation(createGame, { input: game }))
+      const game = { ...form };
+      game.live = false;
+      game.oppositionscore = 0;
+      await API.graphql(graphqlOperation(createGame, { input: game }));
     } catch (err) {
-      console.log('error creating Game:', err);
+      console.log("error creating Game:", err);
     }
     e.target.reset();
     props.props.onGameAdd();
     setForm(blankState);
-  }
+  };
 
   return (
-    <Form className="gameForm" onSubmit={handleSubmit}>
-      <Row>
+    <Form onSubmit={handleSubmit}>
+      <Row className="gameForm">
         <Col>
           <Form.Group className="mb-3">
             <Form.Label>Team</Form.Label>
             <Form.Select
               aria-label="Team"
-              onChange={(e) => setField('team', e.target.value)}
+              onChange={(e) => setField("team", e.target.value)}
             >
               <option></option>
               <option value="1">1</option>
@@ -56,7 +57,7 @@ const AddGame = (props) => {
             <Form.Control
               type="against"
               placeholder="Enter opposition"
-              onChange={(e) => setField('against', e.target.value)}
+              onChange={(e) => setField("against", e.target.value)}
             />
           </Form.Group>
         </Col>
@@ -66,8 +67,8 @@ const AddGame = (props) => {
             <Form.Label>Date:</Form.Label>
             <FormControl
               type="date"
-              style={{ width: '100%' }}
-              onChange={(e) => setField('date', e.target.value)}
+              style={{ width: "100%" }}
+              onChange={(e) => setField("date", e.target.value)}
             />
           </Form.Group>
         </Col>
@@ -75,7 +76,7 @@ const AddGame = (props) => {
         <Col>
           <Form.Group className="mb-3">
             <Form.Label>Location:</Form.Label>
-            <Form.Select onChange={(e) => setField('location', e.target.value)}>
+            <Form.Select onChange={(e) => setField("location", e.target.value)}>
               <option></option>
               <option value="Home">Home</option>
               <option value="Away">Away</option>
@@ -89,7 +90,7 @@ const AddGame = (props) => {
         </Col>
       </Row>
     </Form>
-  )
-}
+  );
+};
 
-export default AddGame
+export default AddGame;
