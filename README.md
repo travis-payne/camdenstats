@@ -6,6 +6,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+Deployment instructions:
+
+amplify pull --appId d3ufktizz6fywi --envName dev
+
+Make whatever changes you need, then amplify publish
+
+Publish will run push + then deploy changes to the env.
+
 ### `yarn start`
 
 Runs the app in the development mode.\
