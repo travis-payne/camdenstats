@@ -20,6 +20,9 @@
           "appId": "d3ufktizz6fywi",
           "type": "manual"
         }
+      },
+      "api": {
+        "statsapi": {}
       }
     }
   }
