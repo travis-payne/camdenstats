@@ -2,5 +2,5 @@
   "AppSyncApiName": "statsapi",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
-  "CreateAPIKey": 1
+  "CreateAPIKey": 0
 }

@@ -19,8 +19,10 @@ export const createPlayer = /* GraphQL */ `
           gameID
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       goals {
         items {
@@ -30,8 +32,10 @@ export const createPlayer = /* GraphQL */ `
           assistID
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       assists {
         items {
@@ -40,8 +44,10 @@ export const createPlayer = /* GraphQL */ `
           playerID
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       causedTurnovers {
         items {
@@ -50,11 +56,14 @@ export const createPlayer = /* GraphQL */ `
           playerID
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -75,8 +84,10 @@ export const updatePlayer = /* GraphQL */ `
           gameID
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       goals {
         items {
@@ -86,8 +97,10 @@ export const updatePlayer = /* GraphQL */ `
           assistID
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       assists {
         items {
@@ -96,8 +109,10 @@ export const updatePlayer = /* GraphQL */ `
           playerID
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       causedTurnovers {
         items {
@@ -106,11 +121,14 @@ export const updatePlayer = /* GraphQL */ `
           playerID
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -131,8 +149,10 @@ export const deletePlayer = /* GraphQL */ `
           gameID
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       goals {
         items {
@@ -142,8 +162,10 @@ export const deletePlayer = /* GraphQL */ `
           assistID
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       assists {
         items {
@@ -152,8 +174,10 @@ export const deletePlayer = /* GraphQL */ `
           playerID
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       causedTurnovers {
         items {
@@ -162,11 +186,14 @@ export const deletePlayer = /* GraphQL */ `
           playerID
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -191,8 +218,10 @@ export const createGame = /* GraphQL */ `
           assistID
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       player {
         items {
@@ -201,11 +230,14 @@ export const createGame = /* GraphQL */ `
           gameID
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -230,8 +262,10 @@ export const updateGame = /* GraphQL */ `
           assistID
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       player {
         items {
@@ -240,11 +274,14 @@ export const updateGame = /* GraphQL */ `
           gameID
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -269,8 +306,10 @@ export const deleteGame = /* GraphQL */ `
           assistID
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       player {
         items {
@@ -279,11 +318,14 @@ export const deleteGame = /* GraphQL */ `
           gameID
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -306,12 +348,15 @@ export const createPlayerGameJoin = /* GraphQL */ `
         oppositionscore
         goals {
           nextToken
+          __typename
         }
         player {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       player {
         id
@@ -320,21 +365,27 @@ export const createPlayerGameJoin = /* GraphQL */ `
         team
         game {
           nextToken
+          __typename
         }
         goals {
           nextToken
+          __typename
         }
         assists {
           nextToken
+          __typename
         }
         causedTurnovers {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -357,12 +408,15 @@ export const updatePlayerGameJoin = /* GraphQL */ `
         oppositionscore
         goals {
           nextToken
+          __typename
         }
         player {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       player {
         id
@@ -371,21 +425,27 @@ export const updatePlayerGameJoin = /* GraphQL */ `
         team
         game {
           nextToken
+          __typename
         }
         goals {
           nextToken
+          __typename
         }
         assists {
           nextToken
+          __typename
         }
         causedTurnovers {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -408,12 +468,15 @@ export const deletePlayerGameJoin = /* GraphQL */ `
         oppositionscore
         goals {
           nextToken
+          __typename
         }
         player {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       player {
         id
@@ -422,21 +485,27 @@ export const deletePlayerGameJoin = /* GraphQL */ `
         team
         game {
           nextToken
+          __typename
         }
         goals {
           nextToken
+          __typename
         }
         assists {
           nextToken
+          __typename
         }
         causedTurnovers {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -460,12 +529,15 @@ export const createGoal = /* GraphQL */ `
         oppositionscore
         goals {
           nextToken
+          __typename
         }
         player {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       player {
         id
@@ -474,18 +546,23 @@ export const createGoal = /* GraphQL */ `
         team
         game {
           nextToken
+          __typename
         }
         goals {
           nextToken
+          __typename
         }
         assists {
           nextToken
+          __typename
         }
         causedTurnovers {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       assist {
         id
@@ -498,12 +575,15 @@ export const createGoal = /* GraphQL */ `
           team
           createdAt
           updatedAt
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -527,12 +607,15 @@ export const updateGoal = /* GraphQL */ `
         oppositionscore
         goals {
           nextToken
+          __typename
         }
         player {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       player {
         id
@@ -541,18 +624,23 @@ export const updateGoal = /* GraphQL */ `
         team
         game {
           nextToken
+          __typename
         }
         goals {
           nextToken
+          __typename
         }
         assists {
           nextToken
+          __typename
         }
         causedTurnovers {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       assist {
         id
@@ -565,12 +653,15 @@ export const updateGoal = /* GraphQL */ `
           team
           createdAt
           updatedAt
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -594,12 +685,15 @@ export const deleteGoal = /* GraphQL */ `
         oppositionscore
         goals {
           nextToken
+          __typename
         }
         player {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       player {
         id
@@ -608,18 +702,23 @@ export const deleteGoal = /* GraphQL */ `
         team
         game {
           nextToken
+          __typename
         }
         goals {
           nextToken
+          __typename
         }
         assists {
           nextToken
+          __typename
         }
         causedTurnovers {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       assist {
         id
@@ -632,12 +731,15 @@ export const deleteGoal = /* GraphQL */ `
           team
           createdAt
           updatedAt
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -657,21 +759,27 @@ export const createAssist = /* GraphQL */ `
         team
         game {
           nextToken
+          __typename
         }
         goals {
           nextToken
+          __typename
         }
         assists {
           nextToken
+          __typename
         }
         causedTurnovers {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -691,21 +799,27 @@ export const updateAssist = /* GraphQL */ `
         team
         game {
           nextToken
+          __typename
         }
         goals {
           nextToken
+          __typename
         }
         assists {
           nextToken
+          __typename
         }
         causedTurnovers {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -725,21 +839,27 @@ export const deleteAssist = /* GraphQL */ `
         team
         game {
           nextToken
+          __typename
         }
         goals {
           nextToken
+          __typename
         }
         assists {
           nextToken
+          __typename
         }
         causedTurnovers {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -759,21 +879,27 @@ export const createCausedTurnover = /* GraphQL */ `
         team
         game {
           nextToken
+          __typename
         }
         goals {
           nextToken
+          __typename
         }
         assists {
           nextToken
+          __typename
         }
         causedTurnovers {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -793,21 +919,27 @@ export const updateCausedTurnover = /* GraphQL */ `
         team
         game {
           nextToken
+          __typename
         }
         goals {
           nextToken
+          __typename
         }
         assists {
           nextToken
+          __typename
         }
         causedTurnovers {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -827,21 +959,27 @@ export const deleteCausedTurnover = /* GraphQL */ `
         team
         game {
           nextToken
+          __typename
         }
         goals {
           nextToken
+          __typename
         }
         assists {
           nextToken
+          __typename
         }
         causedTurnovers {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;

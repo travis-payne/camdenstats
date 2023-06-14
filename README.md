@@ -1,9 +1,3 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
 In the project directory, you can run:
 
 Deployment instructions:
@@ -13,6 +7,17 @@ amplify pull --appId d3ufktizz6fywi --envName dev
 Make whatever changes you need, then amplify publish
 
 Publish will run push + then deploy changes to the env.
+
+### Updating API key
+
+Writing this down so I don't forget (again).
+
+1. Nagivate to AWS AppSync.
+2. Find the stats API.
+3. Generate a new API key.
+4. Run amplify push to generate src/aws-exports.js if it isn't already there(the command will break first time don't panic its a dumb AWS thing.)
+5. Replace the key in aws-exports.js
+6. Run amplify publish
 
 ### `yarn start`
 
